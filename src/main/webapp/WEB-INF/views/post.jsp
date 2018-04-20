@@ -48,23 +48,23 @@
 			</button>
 		  </div>
 		  <div class="modal-body">
-			<form id="createform" method="post" action="/">
+			<form id="createform" method="post" action="/login">
 			<div class="form-group">
               <label for="author"><span class="glyphicon glyphicon-user"></span> AUTHOR</label>
-              <input type="text" class="form-control" name="author" placeholder="Enter Author Name">
+              <input type="text" class="form-control" name="author" placeholder="Enter Author Name" value="${requestScope.author}">
             </div>
             <div class="form-group">
               <label for="isbn"><span class="glyphicon glyphicon-eye-open"></span> ISBN</label>
-              <input type="text" class="form-control" name="isbn" placeholder="Enter ISBN">
+              <input type="text" class="form-control" name="isbn" placeholder="Enter ISBN" value="${requestScope.isbn}">
             </div>
 			<div class="form-group">
               <label for="title"><span class="glyphicon glyphicon-eye-open"></span> TITLE</label>
-              <input type="text" class="form-control" name="title" placeholder="Enter TITLE">
+              <input type="text" class="form-control" name="title" placeholder="Enter TITLE" value="${requestScope.title}">
             </div>
 			<div class="form-group">
               <label for="description"><span class="glyphicon glyphicon-eye-open"></span> DESCRIPTION</label>
 			  <br>
-              <textarea row="5" col="3" class="form-control" name="description" placeholder="Enter Description" form="createform"></textarea>
+              <textarea row="5" col="3" class="form-control" name="description" placeholder="Enter Description" form="createform" value="${requestScope.description}"></textarea>
 			  
             </div>
 			</form>

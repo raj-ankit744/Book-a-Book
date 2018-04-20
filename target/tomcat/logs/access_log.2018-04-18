@@ -1,0 +1,5 @@
+0:0:0:0:0:0:0:1 - - [18/Apr/2018:20:57:31 +0530] "GET / HTTP/1.1" 404 951 http-bio-8080-exec-1 75
+0:0:0:0:0:0:0:1 - - [18/Apr/2018:20:57:31 +0530] "GET /favicon.ico HTTP/1.1" 404 973 http-bio-8080-exec-2 1
+0:0:0:0:0:0:0:1 - - [18/Apr/2018:21:00:56 +0530] "GET /web-application/WEB-INF/views/first.jsp HTTP/1.1" 404 1029 http-bio-8080-exec-4 5
+0:0:0:0:0:0:0:1 - - [18/Apr/2018:21:01:49 +0530] "GET /first HTTP/1.1" 200 388 http-bio-8080-exec-6 1236
+0:0:0:0:0:0:0:1 - - [18/Apr/2018:21:01:51 +0530] "GET /favicon.ico HTTP/1.1" 404 973 http-bio-8080-exec-7 2
