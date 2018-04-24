@@ -3,7 +3,9 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 	<title>Insert title here</title>
-	<link rel="stylesheet" href="css/bootstrap.min.css" type="text/css" />
+	<style type="text/css">
+  		<%@include file="css/bootstrap.min.css" %>
+	</style>
 	<script type="text/javascript" src="js/bootstrap.min.js"></script> 
 </head>
 <body>
@@ -27,7 +29,7 @@
 	            <div class="row">
 	                <div class="col-xs-12 col-sm-12 col-md-12">
 	                    <div class="form-group">
-	                        <a href="#/signup">
+	                        <a href="/signup">
 	                            Not Registered? Create An Account
 	                        </a>
 	                    </div>

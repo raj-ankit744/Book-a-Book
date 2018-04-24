@@ -5,7 +5,7 @@ import java.sql.DriverManager;
 public class DatabaseConnect {
 	private static DatabaseConnect dc = null;
 	Connection conn = null;
-	String url, dbname, username, password, driver;
+	String url="jdbc:mysql://localhost:3306/", dbname="project", username="root", password="1234", driver="com.mysql.jdbc.Driver";
 	private DatabaseConnect() {
 		
 	}
@@ -14,7 +14,7 @@ public class DatabaseConnect {
 			dc = new DatabaseConnect();
 		return dc;
 	}
-	public Connection mySqlConnection(String url, String dbname, String username, String password, String driver) {
+	public Connection mySqlConnection() {
 		try {
 			Class.forName(driver).newInstance();
 			conn = DriverManager.getConnection(url+dbname,username,password);
