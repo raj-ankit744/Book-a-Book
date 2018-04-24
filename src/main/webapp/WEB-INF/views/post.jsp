@@ -6,10 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css" />
+    <style type="text/css">
+  		<%@include file="css/bootstrap.min.css" %>
+	</style>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
-    <script type="text/javascript" src="js/bootstrap.min.js"></script> 
+    <script type="text/javascript" src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script> 
     <title>Book-a-book.com</title>
   </head>
   <body>
@@ -48,24 +50,29 @@
 			</button>
 		  </div>
 		  <div class="modal-body">
-			<form id="createform" method="post" action="/login">
+			<form id="createform" method="post" action="/post">
 			<div class="form-group">
               <label for="author"><span class="glyphicon glyphicon-user"></span> AUTHOR</label>
-              <input type="text" class="form-control" name="author" placeholder="Enter Author Name" value="${requestScope.author}">
+              <input type="text" class="form-control" name="author" placeholder="Enter Author Name" value="${requestScope.author}" required>
             </div>
             <div class="form-group">
               <label for="isbn"><span class="glyphicon glyphicon-eye-open"></span> ISBN</label>
-              <input type="text" class="form-control" name="isbn" placeholder="Enter ISBN" value="${requestScope.isbn}">
+              <input type="text" class="form-control" name="isbn" placeholder="Enter ISBN" value="${requestScope.isbn}" required>
             </div>
+            
 			<div class="form-group">
               <label for="title"><span class="glyphicon glyphicon-eye-open"></span> TITLE</label>
-              <input type="text" class="form-control" name="title" placeholder="Enter TITLE" value="${requestScope.title}">
+              <input type="text" class="form-control" name="title" placeholder="Enter TITLE" value="${requestScope.title}" required>
             </div>
 			<div class="form-group">
               <label for="description"><span class="glyphicon glyphicon-eye-open"></span> DESCRIPTION</label>
 			  <br>
-              <textarea row="5" col="3" class="form-control" name="description" placeholder="Enter Description" form="createform" value="${requestScope.description}"></textarea>
+              <textarea row="5" col="3" class="form-control" name="description" placeholder="Enter Description" form="createform" value="${requestScope.description}" required></textarea>
 			  
+            </div>
+            <div class="form-group">
+              <label for="price"><span class="glyphicon glyphicon-eye-open"></span> Price</label>
+              <input type="text" class="form-control" name="price" placeholder="Enter Price" value="${requestScope.price}" required>
             </div>
 			</form>
 		  </div>
