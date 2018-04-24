@@ -1,6 +1,4 @@
 package webapp;
-import entity.Book;
-import entity.Post;
 import model.PostManager;
 import java.io.IOException;
 import java.sql.*;
@@ -28,6 +26,7 @@ public class PostServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, 
 			IOException {
 		String pid = "RE12";
+		String uid = "12";
 		String author = request.getParameter("author");
 		String isbn = request.getParameter("isbn");
 		String title = request.getParameter("title");
@@ -39,9 +38,7 @@ public class PostServlet extends HttpServlet {
 		System.out.println(description);
 		request.getRequestDispatcher("/WEB-INF/views/post.jsp").forward(
 				request, response); 
-		Book b = new Book(isbn,title,author);
-		Post p = new Post(pid,b,"12",description,price);
-		pm.savePost(p);
+		pm.createPost(pid,isbn,title,author,uid,description,price);
 	}
 	
 	

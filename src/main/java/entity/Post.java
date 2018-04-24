@@ -59,7 +59,7 @@ public class Post {
 	public void setPrice(double price) {
 		this.price = price;
 	}
-	 public void save() {
+	 public void createPost() {
 		 try {
 				Connection conn = DatabaseConnect.createInstance().mySqlConnection();
 				String query = "insert into postad (id, isbn, uid, description, price)" 

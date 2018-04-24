@@ -9,9 +9,11 @@
     <style type="text/css">
   		<%@include file="css/bootstrap.min.css" %>
 	</style>
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
-    <script type="text/javascript" src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script> 
+      <script type="text/javascript">
+      	<%@include file="js/jquery-3.2.1.slim.min.js" %>
+      	<%@include file="js/popper.min.js" %>
+      	<%@include file="js/bootstrap.min.js" %>
+      </script> 
     <title>Book-a-book.com</title>
   </head>
   <body>
