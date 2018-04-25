@@ -11,7 +11,7 @@
 <body>
 	<div class ="row">
 	    <div class ="col-xs-10 col-sm-6 col-md-4 col-cs-offset-1 col-sm-offset-3 col-md-offset-4">
-	        <form>
+	        <form id="login" method="post" action="/login">
 	            <h2>Login</h2>
 	            <hr/>
 	            <div class="row">
@@ -40,6 +40,7 @@
 	                    </div>
 	                </div>
 	            </div> 
+	            ${error }
 	        </form>
 	    </div>
 	</div>	
