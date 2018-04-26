@@ -9,13 +9,24 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+//@WebServlet(urlPatterns = "/post")
 public class PostServlet extends HttpServlet {
 	
 	PostManager pm = new PostManager();
 	@Override
 	protected void doGet(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {		
+			HttpServletResponse response) throws ServletException, IOException {
+		String logout = request.getParameter("logout");
+		HttpSession session = request.getSession();
+		session.setAttribute("login","true");
+		session.setAttribute("cur", request.getRequestURI());
+		if(logout!=null || session.getAttribute("username")==null) {
+			session.invalidate();
+			response.sendRedirect("/signup");
+			return;
+		}
 		request.getRequestDispatcher("/WEB-INF/views/post.jsp").forward(
 				request, response);
 	}
@@ -35,8 +46,7 @@ public class PostServlet extends HttpServlet {
 		System.out.println(isbn);
 		System.out.println(title);
 		System.out.println(description);
-		request.getRequestDispatcher("/WEB-INF/views/post.jsp").forward(
-				request, response); 
+		request.getRequestDispatcher("/WEB-INF/views/post.jsp").forward(request, response); 
 		pm.createPost(pid,isbn,title,author,uid,description,price);
 	}
 	

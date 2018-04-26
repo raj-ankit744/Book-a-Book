@@ -7,15 +7,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-
 import java.io.IOException;
 import java.sql.*;
 import helpers.DatabaseConnect;
 import model.UserManager;
 
-public class SignupServlet extends HttpServlet {
+public class LoginServlet extends HttpServlet {
 	UserManager um = new UserManager();
-	@Override
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
@@ -25,20 +23,26 @@ public class SignupServlet extends HttpServlet {
 			response.sendRedirect(header);
 			return;
 		}
-		request.getRequestDispatcher("/WEB-INF/views/signup.jsp").forward(
+		request.getRequestDispatcher("/WEB-INF/views/login.jsp").forward(
 				request, response);
 	}
-	
-	@Override
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, 
-			IOException {
-		String user = request.getParameter("first_name") + " " + request.getParameter("last_name");
-		String email = request.getParameter("email");
-		String address = request.getParameter("address");
+	protected void doPost(HttpServletRequest request,
+		HttpServletResponse response) throws ServletException, IOException {
+		String uid = request.getParameter("uid");
 		String password = request.getParameter("password");
-		String contact = request.getParameter("contact");
-		String usertype = request.getParameter("usertype");	
-		um.createUser(email,password, user , usertype, address, contact);
-		response.sendRedirect("/login"); 
+		String usertype = um.verifyuser(uid, password);
+		HttpSession session = request.getSession(true);
+		if(usertype.equalsIgnoreCase("Seller")) {
+			session.setAttribute("username", uid);
+			response.sendRedirect("/post");
+		}
+		else if(usertype.equalsIgnoreCase("Buyer")) {
+			session.setAttribute("username", uid);
+			response.sendRedirect("/search");
+		}
+		else {
+			session.invalidate();
+			response.sendRedirect("/login");
+		}
 	}
 }
