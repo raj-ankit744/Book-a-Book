@@ -54,8 +54,12 @@
 	            </div>
 	          
 	            <div class="form-group">
-	                        <input name= "usertype" value="Seller" type="radio" class="form-control input-md"  tabindex="8" checked>Seller
-	                        <input name="usertype" value="Buyer" type="radio" class="form-control input-md"  tabindex="9" > Buyer
+	            	<label class="radio-inline">
+      						<input name= "usertype" value="Seller" type="radio"  tabindex="8" checked>  Seller
+    				</label>
+    				<label class="radio-inline">
+      						<input name="usertype" value="Buyer" type="radio"   tabindex="9" >   Buyer
+    				</label>
 	            </div>
 	      </form>
 	            <div class="row">

@@ -3,16 +3,17 @@ package entity;
 import java.util.Date;
 
 public class Order {
-	String id,suid,buid,isbn;
+	String oid,suid,buid,isbn;
 	Boolean status;
+	Date date; 
 	public Boolean getStatus() {
 		return status;
 	}
 	public void setStatus(Boolean status) {
 		this.status = status;
 	}
-	public String getId() {
-		return id;
+	public String getOid() {
+		return oid;
 	}
 	public String getSuid() {
 		return suid;
@@ -26,6 +27,6 @@ public class Order {
 	public Date getDate() {
 		return date;
 	}
-	Date date; 
+	
 	
 }
