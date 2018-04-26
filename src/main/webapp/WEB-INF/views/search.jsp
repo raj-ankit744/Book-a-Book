@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
+ <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 	<title>Search Books</title>
 	<style type="text/css">
@@ -9,42 +12,72 @@
 	<script type="text/javascript" src="js/bootstrap.min.js"></script>
 	<script type="text/javascript">
 		<%@include file="js/search_radio.js" %>
+		<%@include file="js/jquery-3.2.1.slim.min.js" %>
+      	<%@include file="js/popper.min.js" %>
+      	<%@include file="js/bootstrap.min.js" %>
 	</script> 
 </head>
 <body>
-	<div class ="row">
-	    <div class ="col-xs-10 col-sm-6 col-md-4 col-cs-offset-1 col-sm-offset-3 col-md-offset-4">
-	        <form id="search" method=post action="/search">
-	            <h2>Search Book</h2>
-	            <hr/>
-	            <div class="row">
-	                <div class = "col-xs-12 col-sm-12 col md-12">
-	                    <div>
-	                        <input name= "searchtype" value="ISBN" type="radio"  tabindex="1" onclick="show1();" checked>ISBN<input id="isbn_text" type="text" class="form-control input-md" placeholder="ISBN" tabindex="2" required>
-	                    </div>
-	                </div>
-	                <div class = "col-xs-12 col-sm-12 col md-12">
-	                    <div>
-	                        <input name= "searchtype" value="Title" type="radio"  tabindex="3" onclick="show2();" >TITLE<input id="title_text" type="text" class="form-control input-md" placeholder="Title" tabindex="4" disabled=true required>
-	                    </div>
-	                </div>
-	                <div class = "col-xs-12 col-sm-12 col md-12">
-	                    <div>
-	                        <input name= "searchtype" value="Author" type="radio"  tabindex="5" onclick="show3();" >Author<input id="author_text" type="text" class="form-control input-md" placeholder="Author"  tabindex="6" disabled=true required>
-	                    </div>
-	                </div>
-	                
-	            </div>
-	            <div class="row">
-	                
-	                <div class="col-xs-12 col-sm-12 col-md-12">
-	                    <div class="form-group">
-	                        <button type = "submit" class="btn btn-primary btn-block btn-md" tabindex="7">Search</button>
-	                    </div>
-	                </div>
-	            </div> 
-	        </form>
-	    </div>
-	</div>	
+	<nav class="navbar navbar-expand-lg navbar-light bg-light">
+		<a class="navbar-brand" href="#">Book-a-Book</a>
+		<ul class="navbar-nav navbar">
+			<li class="nav-item active">
+				<a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+			</li>
+			<li class="nav-item active">
+				<a class="nav-link" data-toggle="modal" href="#searchpost">Search Book</a>
+			</li>
+		</ul>
+		<ul class = "nav navbar-nav ml-auto pull-right">
+			<li class="nav-item dropdown">
+				<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				${sessionScope.username}
+				</a>
+				<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+					<a class="dropdown-item" href="/post?logout=true">Logout</a></div>
+			</li>
+		</ul>
+	</nav>
+	<!-- Modal -->	
+	<div class="modal fade" id="searchpost" tabindex="-1" role="dialog" aria-hidden="true">
+	  <div class="modal-dialog" role="document">
+		<div class="modal-content">
+		  <div class="modal-header">
+			<h5 class="modal-title" >Enter Search Details</h5>
+			<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			  <span aria-hidden="true">&times;</span>
+			</button>
+		  </div>
+		  <div class="modal-body">
+			<form id="createform" method="post" action="/search">
+			<div class="form-group">
+				<input name= "searchtype" value="ISBN" type="radio"  onclick="show1();" checked>&nbsp;ISBN
+			</div>
+			<div class="form-group">
+				<input id="isbn_text" type="text" class="form-control" placeholder="ISBN" required>
+            </div>
+            <div class="form-group">
+              <input name= "searchtype" value="Title" type="radio"  onclick="show2();" >&nbsp;TITLE
+            </div>
+            <div class="form-group">
+              <input id="title_text" type="text" class="form-control input-md" placeholder="Title" disabled=true required>
+            </div>
+            
+			<div class="form-group">
+              <input name= "searchtype" value="Author" type="radio"  onclick="show3();" >&nbsp;Author
+            </div>
+            <div class="form-group">
+              <input id="author_text" type="text" class="form-control input-md" placeholder="Author" disabled=true required>
+            </div>
+			</form>
+		  </div>
+		  
+		  <div class="modal-footer">
+			<button  class="btn btn-secondary" data-dismiss="modal">Close</button>
+			<button form="createform" type="submit" class="btn btn-default btn-success btn-block"><span class="glyphicon glyphicon-off"></span> Search</button>
+		  </div>
+		</div>
+	  </div>
+	</div>
 </body>
 </html>
