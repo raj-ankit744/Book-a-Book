@@ -89,7 +89,7 @@ public class Post {
 		 Book b;
 		 try {			 	
 			 	Connection conn = DatabaseConnect.createInstance().mySqlConnection();
-			 	String sql1 = "select * from postad,book where uid = ?";
+			 	String sql1 = "select * from postad where uid = ?";
 			 	PreparedStatement st = conn.prepareStatement(sql1);
 			 	st.setString(1,this.uid);
 			 	String title, author, isbnTemp = "";
