@@ -1,7 +1,6 @@
 model\UserManager.class
 webapp\OrderServlet.class
 webapp\PostServlet.class
-webapp\BGProcessServlet.class
 webapp\DisplayBookServlet.class
 webapp\SignupServlet.class
 webapp\NotificationManagerServlet.class

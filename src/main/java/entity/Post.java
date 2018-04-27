@@ -89,20 +89,25 @@ public class Post {
 		 Book b;
 		 try {			 	
 			 	Connection conn = DatabaseConnect.createInstance().mySqlConnection();
-			 	Statement st = conn.createStatement();
-			 	String sql1 = ("select * from postad where uid = " + this.uid);
+			 	String sql1 = "select * from postad where uid = ?";
+			 	PreparedStatement st = conn.prepareStatement(sql1);
+			 	st.setString(1,this.uid);
 			 	String title, author, isbnTemp = "";
-			 	ResultSet rs1 = st.executeQuery(sql1);
-			 	if(rs1.next()) {			 		
+			 	ResultSet rs1 = st.executeQuery();
+			 	while(rs1.next()) {		
 			 		isbnTemp = rs1.getString("isbn");
-			 		String sql2 = ("select * from book where isbn = " + isbnTemp);
-			 		ResultSet rs2 = st.executeQuery(sql2);
+			 		String sql2 = "select * from book where isbn = ?";
+			 		PreparedStatement st1 = conn.prepareStatement(sql2);
+			 		st1.setString(1, isbnTemp);
+			 		ResultSet rs2 = st1.executeQuery();
+			 		if(rs2.next()) {
 			 		author = rs2.getString("author");
 			 		title = rs2.getString("title");
 			 		b = new Book(isbnTemp, title, author);
 			 		Post temp = new Post(rs1.getString("id"), b, this.uid, rs1.getString("description")
 			 				, rs1.getDouble("price"));
 			 		p.add(temp);
+			 		}
 			 	}
 		 }
 		 catch (Exception e) {
