@@ -1,4 +1,5 @@
 package entity;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -17,6 +18,7 @@ public class User {
 		this.contact = contact;
 		this.order = order;
 	}
+
 	public void register() { 
 		try {
 			Connection conn = DatabaseConnect.createInstance().mySqlConnection();
@@ -61,6 +63,7 @@ public class User {
 		}
 		return "Invalid";
 	}
+
 	public String getUid() {
 		return uid;
 	}
