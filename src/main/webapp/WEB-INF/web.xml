@@ -37,7 +37,7 @@
     
 	<servlet>
        <servlet-name>search</servlet-name>
-       <servlet-class>webapp.SearchServlet</servlet-class>
+       <servlet-class>webapp.DisplayBookServlet</servlet-class>
     </servlet>
  
     <servlet-mapping>

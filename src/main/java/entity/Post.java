@@ -89,7 +89,7 @@ public class Post {
 		 Book b;
 		 try {			 	
 			 	Connection conn = DatabaseConnect.createInstance().mySqlConnection();
-			 	String sql1 = "select * from postad where uid = ?";
+			 	String sql1 = "select * from postad,book where uid = ?";
 			 	PreparedStatement st = conn.prepareStatement(sql1);
 			 	st.setString(1,this.uid);
 			 	String title, author, isbnTemp = "";
@@ -115,4 +115,39 @@ public class Post {
 		 }		 
 		 return p;
 	 }
+
+	public static ArrayList<Post> searchBook(String radio, String isbn, String title, String author) {
+		// TODO Auto-generated method stub
+		ArrayList<Post> res = new ArrayList<Post>();	
+		 try {			 	
+			 	Connection conn = DatabaseConnect.createInstance().mySqlConnection();
+			 	PreparedStatement ps;
+			 	ResultSet rs;
+			 	String query = "select * from postad,book where ";
+			 	if(radio.equals("ISBN")) {
+			 		query += "postad.isbn=? and postad.isbn=book.isbn";
+			 		ps = conn.prepareStatement(query);
+			 		ps.setString(1, isbn);
+			 	}else if(radio.equals("Title")) {
+			 		query += "book.title=? and postad.isbn=book.isbn";
+			 		ps = conn.prepareStatement(query);
+			 		ps.setString(1, title);
+			 	}else {
+			 		query += "book.author=? and postad.isbn=book.isbn";
+			 		ps = conn.prepareStatement(query);
+			 		ps.setString(1,author);
+			 	}
+			 	rs = ps.executeQuery();
+			 	while(rs.next()) {
+			 		Book b = new Book(rs.getString(6), rs.getString(7), rs.getString(8));
+					Post p = new Post(rs.getString(1),b,rs.getString(3),rs.getString(4),rs.getDouble(5));
+					res.add(p);
+			 	}
+			 	
+			 	
+		 }catch(SQLException e) {
+			 e.printStackTrace();
+		 }
+		return res;
+	}
 }

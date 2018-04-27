@@ -1,3 +1,5 @@
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page import="java.util.ArrayList"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -20,6 +22,7 @@
 <body>
 	<nav class="navbar navbar-expand-lg navbar-light bg-light">
 		<a class="navbar-brand" href="#">Book-a-Book</a>
+		
 		<ul class="navbar-nav navbar">
 			<li class="nav-item active">
 				<a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
@@ -38,6 +41,30 @@
 			</li>
 		</ul>
 	</nav>
+	<!-- Search Results -->
+	<div class="container">
+	  <h2>Search Results</h2>	             
+	  <table class="table table-hover" style="visibility : visible">
+	    <thead>	    
+	      <tr>
+	        <th>Title</th>
+	        <th>Author</th>
+	        <th>ISBN</th>
+	        <th>Price</th>
+	      </tr>
+	    </thead>
+	    <tbody>	   	     
+	     <c:forEach var="result" items="${result}"  >     	
+	       <tr>
+	         <td><a href="#"><c:out value = "${result.getB().getTitle()}" /></a></td>
+	         <td><c:out value = "${result.getB().getAuthor()}" /></td>
+	         <td><c:out value = "${result.getB().getIsbn()}" /></td>
+	         <td><c:out value = "${result.getPrice()}" /></td>
+	       </tr>	       
+	      </c:forEach>   	     
+	    </tbody>
+	  </table>
+	</div>
 	<!-- Modal -->	
 	<div class="modal fade" id="searchpost" tabindex="-1" role="dialog" aria-hidden="true">
 	  <div class="modal-dialog" role="document">
@@ -54,20 +81,20 @@
 				<input name= "searchtype" value="ISBN" type="radio"  onclick="show1();" checked>&nbsp;ISBN
 			</div>
 			<div class="form-group">
-				<input id="isbn_text" type="text" class="form-control" placeholder="ISBN" required>
+				<input id="isbn_text" name="isbn_text" type="text" class="form-control" placeholder="ISBN" required>
             </div>
             <div class="form-group">
               <input name= "searchtype" value="Title" type="radio"  onclick="show2();" >&nbsp;TITLE
             </div>
             <div class="form-group">
-              <input id="title_text" type="text" class="form-control input-md" placeholder="Title" disabled=true required>
+              <input id="title_text" name="title_text" type="text" class="form-control input-md" placeholder="Title" disabled=true required>
             </div>
             
 			<div class="form-group">
               <input name= "searchtype" value="Author" type="radio"  onclick="show3();" >&nbsp;Author
             </div>
             <div class="form-group">
-              <input id="author_text" type="text" class="form-control input-md" placeholder="Author" disabled=true required>
+              <input id="author_text" name="author_text" type="text" class="form-control input-md" placeholder="Author" disabled=true required>
             </div>
 			</form>
 		  </div>
