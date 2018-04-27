@@ -1,3 +1,5 @@
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page import="java.util.ArrayList"%>
 <!doctype html>
 <html lang="en">
   <head>
@@ -41,6 +43,32 @@
 		</ul>
 		</div>
 	</nav>
+	<br><br>
+	<div class="container">
+	  <h2>Your posts</h2>	             
+	  <table class="table table-hover">
+	    <thead>	    
+	      <tr>
+	        <th>Title</th>
+	        <th>Author</th>
+	        <th>ISBN</th>
+	        <th>Price</th>
+	      </tr>
+	    </thead>
+	    <tbody>	   	     
+	     <c:forEach var="pd" items="${postData}"  >
+	     <c:forEach var="bd" items="${bookData}" >	     	
+	       <tr>
+	         <td><c:out value = "${bd.title}" /></td>
+	         <td><c:out value = "${bd.author}" /></td>
+	         <td><c:out value = "${bd.isbn}" /></td>
+	         <td><c:out value = "${pd.id}" /></td>
+	       </tr>	       
+	      </c:forEach>
+	     </c:forEach>     	     
+	    </tbody>
+	  </table>
+	</div>
 	<!-- Modal -->
 	<div class="modal fade" id="createpost" tabindex="-1" role="dialog" aria-hidden="true">
 	  <div class="modal-dialog" role="document">

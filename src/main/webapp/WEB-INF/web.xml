@@ -36,7 +36,7 @@
     </servlet-mapping>
 
 	<welcome-file-list>
-		<welcome-file>login.do</welcome-file>
+		<welcome-file>signup</welcome-file>
 	</welcome-file-list>
 
 </web-app>
