@@ -11,6 +11,7 @@ public class PostManager {
 	public void createPost(String pid,String isbn,String title,String author,
 			String uid,String description,double price) {
 		Book b = new Book(isbn,title,author);
+		b.createBook();
 		Post p = new Post(pid,b,"12",description,price);
 		p.createPost();
 	}

@@ -6,7 +6,7 @@
 	<style type="text/css">
   		<%@include file="css/bootstrap.min.css" %>
 	</style>	
-	<script type="text/javascript" src="js/bootstrap.min.js"></script> 
+	<script type="text/javascript" ><%@include file ="js/bootstrap.min.js" %></script> 
 </head>
 <body>
 

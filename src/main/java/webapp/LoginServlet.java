@@ -30,15 +30,17 @@ public class LoginServlet extends HttpServlet {
 		HttpServletResponse response) throws ServletException, IOException {
 		String uid = request.getParameter("uid");
 		String password = request.getParameter("password");
-		String usertype = um.verifyuser(uid, password);
+		String usertype = request.getParameter("usertype");
 		HttpSession session = request.getSession(true);
-		if(usertype.equalsIgnoreCase("Seller")) {
-			session.setAttribute("username", uid);
-			response.sendRedirect("/post");
-		}
-		else if(usertype.equalsIgnoreCase("Buyer")) {
-			session.setAttribute("username", uid);
-			response.sendRedirect("/search");
+		if(um.verifyuser(uid, password, usertype)) {
+			if(usertype.equalsIgnoreCase("Seller")) {
+				session.setAttribute("username", uid);
+				response.sendRedirect("/post");
+			}
+			else if(usertype.equalsIgnoreCase("Buyer")) {
+				session.setAttribute("username", uid);
+				response.sendRedirect("/search");
+			}
 		}
 		else {
 			session.invalidate();

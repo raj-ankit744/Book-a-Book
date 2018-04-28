@@ -10,6 +10,7 @@
     <!-- Bootstrap CSS -->
     <style type="text/css">
   		<%@include file="css/bootstrap.min.css" %>
+  		<%@include file="css/prod.css" %>
 	</style>
       <script type="text/javascript">
       	<%@include file="js/jquery-3.2.1.slim.min.js" %>
@@ -19,6 +20,16 @@
     <title>Book-a-book.com</title>
   </head>
   <body>
+  	<script type="text/javascript">
+	function setvalues(id,isbn,title,author,desc,price) {
+		document.getElementById("pid").innerHTML = id;
+		document.getElementById("isbn").value = isbn;
+		document.getElementById("title").value = title;
+		document.getElementById("author").value = author;
+		document.getElementById("desc").value = desc;
+		document.getElementById("price").value =  price;
+	};
+	</script>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
 		<a class="navbar-brand" href="#">Book-a-Book</a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -43,12 +54,61 @@
 		</ul>
 		</div>
 	</nav>
+	<!-- Modal -->
+	<div class="modal fade" id="modifypost" tabindex="-1" role="dialog" aria-hidden="true">
+	  <div class="modal-dialog" role="document">
+		<div class="modal-content">
+		  <div class="modal-header">
+			<h5 class="modal-title" >Enter Advertisement Details</h5>
+			<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			  <span aria-hidden="true">&times;</span>
+			</button>
+		  </div>
+		  <div class="modal-body">
+			<form id="modifypost" method="post" action="/post">
+			<div class="form-group">
+              <label >PID  <span id = "pid" class="glyphicon glyphicon-user"></span> </label>
+            </div>
+			<div class="form-group">
+              <label for="author"><span class="glyphicon glyphicon-user"></span> AUTHOR</label>
+              <input type="text" class="form-control" name="author" id="author" placeholder="Enter Author Name" value="${requestScope.author}" required>
+            </div>
+            <div class="form-group">
+              <label for="isbn"><span class="glyphicon glyphicon-eye-open"></span> ISBN</label>
+              <input type="text" class="form-control" name="isbn" id="isbn" placeholder="Enter ISBN" value="${requestScope.isbn}" required>
+            </div>
+            
+			<div class="form-group">
+              <label for="title"><span class="glyphicon glyphicon-eye-open"></span> TITLE</label>
+              <input type="text" class="form-control" name="title" id="title" placeholder="Enter TITLE" value="${requestScope.title}" required>
+            </div>
+			<div class="form-group">
+              <label for="description"><span class="glyphicon glyphicon-eye-open"></span> DESCRIPTION</label>
+			  <br>
+              <textarea row="5" col="3" class="form-control" id="desc" name="description" placeholder="Enter Description" form="createform" value="${requestScope.description}" required></textarea>
+			  
+            </div>
+            <div class="form-group">
+              <label for="price"><span class="glyphicon glyphicon-eye-open"></span> Price</label>
+              <input type="text" class="form-control" id="price" name="price" placeholder="Enter Price" value="${requestScope.price}" required>
+            </div>
+			</form>
+		  </div>
+		  
+		  <div class="modal-footer">
+			<button  class="btn btn-secondary" data-dismiss="modal">Close</button>
+			<button form="createform" type="submit" class="btn btn-default btn-success btn-block"><span class="glyphicon glyphicon-off"></span> Create</button>
+		  </div>
+		</div>
+	  </div>
+	</div>
 	<br><br>
 	<div class="container">
 	  <h2>Your posts</h2>	             
 	  <table class="table table-hover">
 	    <thead>	    
 	      <tr>
+	      	<th>Post Id</th>
 	        <th>Title</th>
 	        <th>Author</th>
 	        <th>ISBN</th>
@@ -56,14 +116,15 @@
 	      </tr>
 	    </thead>
 	    <tbody>	   	     
-	     <c:forEach var="pd" items="${postData}" >	     	
-	       <tr>
-	         <td><c:out value = "${pd.getB().title}" /></td>
-	         <td><c:out value = "${pd.getB().author}" /></td>
-	         <td><c:out value = "${pd.getB().isbn}" /></td>
-	         <td><c:out value = "${pd.price}" /></td>
+	     <c:forEach var="pd" items="${postData}"  >     	
+	       <tr data-toggle = "modal" href="#modifypost" onclick = "setvalues('${pd.getId() }','${pd.getB().getIsbn()}','${pd.getB().getTitle()}','${pd.getB().getAuthor()}','${pd.getDescription() }','${pd.getPrice() }');">
+	       	 <td><c:out value = "${pd.getId() }" /> </td>
+	         <td> <c:out value = "${pd.getB().getTitle()}" /> </td>
+	         <td><c:out value = "${pd.getB().getAuthor()}" /></td>
+	         <td><c:out value = "${pd.getB().getIsbn()}" /></td>
+	         <td><c:out value = "${pd.getPrice()}" /></td>
 	       </tr>	       
-	      </c:forEach>
+	      </c:forEach>   	
 	    </tbody>
 	  </table>
 	</div>

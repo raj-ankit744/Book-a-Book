@@ -26,10 +26,20 @@ public class DisplayBookServlet extends HttpServlet{
 			response.sendRedirect("/signup");
 			return;
 		}
+		String postid = request.getParameter("product");
+		System.out.println(postid);
+		if(postid != null) {
+			Post p = Post.getPost(postid);
+			System.out.println(p.getPrice());
+			request.setAttribute("clickedpost",p);
+			return;
+		}
+		
 		request.getRequestDispatcher("/WEB-INF/views/search.jsp").forward(request, response);
 	}
 	protected void doPost(HttpServletRequest request,
 		HttpServletResponse response) throws ServletException, IOException {
+		
 		String radio = request.getParameter("searchtype");
 		/*response.setContentType("text/html");
 		PrintWriter out = response.getWriter();
@@ -38,9 +48,9 @@ public class DisplayBookServlet extends HttpServlet{
 		
 		result = dm.searchBook(radio, request.getParameter("isbn_text"), request.getParameter("title_text"), request.getParameter("author_text"));
 		request.setAttribute("result", result);
-		
 		/*if(result.size()>0)
 		out.println(result.get(0).getB().getIsbn());*/
 		request.getRequestDispatcher("/WEB-INF/views/search.jsp").include(request, response);
+		
 	}
 }
