@@ -56,16 +56,14 @@
 	      </tr>
 	    </thead>
 	    <tbody>	   	     
-	     <c:forEach var="pd" items="${postData}"  >
-	     <c:forEach var="bd" items="${bookData}" >	     	
+	     <c:forEach var="pd" items="${postData}" >	     	
 	       <tr>
-	         <td><c:out value = "${bd.title}" /></td>
-	         <td><c:out value = "${bd.author}" /></td>
-	         <td><c:out value = "${bd.isbn}" /></td>
-	         <td><c:out value = "${pd.id}" /></td>
+	         <td><c:out value = "${pd.getB().title}" /></td>
+	         <td><c:out value = "${pd.getB().author}" /></td>
+	         <td><c:out value = "${pd.getB().isbn}" /></td>
+	         <td><c:out value = "${pd.price}" /></td>
 	       </tr>	       
 	      </c:forEach>
-	     </c:forEach>     	     
 	    </tbody>
 	  </table>
 	</div>
