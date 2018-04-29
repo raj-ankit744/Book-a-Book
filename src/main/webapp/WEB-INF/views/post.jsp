@@ -55,7 +55,7 @@
 		</div>
 	</nav>
 	<!-- Modal -->
-	<div class="modal fade" id="modifypost" tabindex="-1" role="dialog" aria-hidden="true">
+	<!-- <div class="modal fade" id="modifypost" tabindex="-1" role="dialog" aria-hidden="true">
 	  <div class="modal-dialog" role="document">
 		<div class="modal-content">
 		  <div class="modal-header">
@@ -85,7 +85,7 @@
 			<div class="form-group">
               <label for="description"><span class="glyphicon glyphicon-eye-open"></span> DESCRIPTION</label>
 			  <br>
-              <textarea row="5" col="3" class="form-control" id="desc" name="description" placeholder="Enter Description" form="createform" value="${requestScope.description}" required></textarea>
+              <textarea row="5" col="3" class="form-control" id="desc" name="description" placeholder="Enter Description" form="createform"  required></textarea>
 			  
             </div>
             <div class="form-group">
@@ -101,7 +101,7 @@
 		  </div>
 		</div>
 	  </div>
-	</div>
+	</div>-->
 	<br><br>
 	<div class="container">
 	  <h2>Your posts</h2>	             
@@ -156,7 +156,7 @@
 			<div class="form-group">
               <label for="description"><span class="glyphicon glyphicon-eye-open"></span> DESCRIPTION</label>
 			  <br>
-              <textarea row="5" col="3" class="form-control" name="description" placeholder="Enter Description" form="createform" value="${requestScope.description}" required></textarea>
+              <textarea class="form-control" name="description" placeholder="Enter Description" form="createform"   required></textarea>
 			  
             </div>
             <div class="form-group">

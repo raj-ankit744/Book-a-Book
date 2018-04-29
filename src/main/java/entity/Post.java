@@ -11,19 +11,29 @@ public class Post {
 	String uid;
 	String description;
 	double price;
+	boolean status;
 	
-	public Post(String id,Book b,String uid, String description, double price){
+	public Post(String id,Book b,String uid, String description, double price,boolean status){
 		this.id = id;
 		this.b = b;
 		this.uid = uid;
 		this.description = description;
 		this.price = price;
+		this.status = status;
 	}
 
 	public Post() {
 		
 	}
 	
+	public boolean isStatus() {
+		return status;
+	}
+
+	public void setStatus(boolean status) {
+		this.status = status;
+	}
+
 	public String getId() {
 		return id;
 	}
@@ -66,8 +76,8 @@ public class Post {
 	 public void createPost() {
 		 try {
 				Connection conn = DatabaseConnect.createInstance().mySqlConnection();
-				String query = "insert into postad (id, isbn, uid, description, price)" 
-						+ " values (?,?,?,?,?)";
+				String query = "insert into postad (id, isbn, uid, description, price, status)" 
+						+ " values (?,?,?,?,?,?)";
 				
 				if(conn == null)	
 					return ;
@@ -77,6 +87,7 @@ public class Post {
 				ps.setString(3, this.getUid());
 				ps.setString(4, this.getDescription());
 				ps.setDouble(5, this.getPrice());
+				ps.setBoolean(6, this.status);
 				ps.execute();
 				conn.close();
 			}
@@ -89,7 +100,7 @@ public class Post {
 		 Book b;
 		 try {			 	
 			 	Connection conn = DatabaseConnect.createInstance().mySqlConnection();
-			 	String sql1 = "select * from postad where uid = ?";
+			 	String sql1 = "select * from postad where uid = ? and status = 1";
 			 	PreparedStatement st = conn.prepareStatement(sql1);
 			 	st.setString(1,this.uid);
 			 	String title, author, isbnTemp = "";
@@ -105,7 +116,7 @@ public class Post {
 			 		title = rs2.getString("title");
 			 		b = new Book(isbnTemp, title, author);
 			 		Post temp = new Post(rs1.getString("id"), b, this.uid, rs1.getString("description")
-			 				, rs1.getDouble("price"));
+			 				, rs1.getDouble("price"), rs1.getBoolean("status"));
 			 		p.add(temp);
 			 		}
 			 	}
@@ -136,7 +147,7 @@ public class Post {
 		 		if(rs1.next()) {
 		 			Book b = new Book(rs1.getString(1),rs1.getString(2),rs1.getString(3));
 		 			
-		 			return new Post(rs.getString(1),b,rs.getString(3),rs.getString(4),rs.getDouble(5));
+		 			return new Post(rs.getString(1),b,rs.getString(3),rs.getString(4),rs.getDouble(5),rs.getBoolean(6));
 		 		}
 		 	}
 		}
@@ -152,7 +163,7 @@ public class Post {
 			 	Connection conn = DatabaseConnect.createInstance().mySqlConnection();
 			 	PreparedStatement ps;
 			 	ResultSet rs;
-			 	String query = "select * from postad,book where ";
+			 	String query = "select * from postad,book where postad.status = 1 and ";
 			 	if(radio.equals("ISBN")) {
 			 		query += "postad.isbn=? and postad.isbn=book.isbn";
 			 		ps = conn.prepareStatement(query);
@@ -168,8 +179,8 @@ public class Post {
 			 	}
 			 	rs = ps.executeQuery();
 			 	while(rs.next()) {
-			 		Book b = new Book(rs.getString(6), rs.getString(7), rs.getString(8));
-					Post p = new Post(rs.getString(1),b,rs.getString(3),rs.getString(4),rs.getDouble(5));
+			 		Book b = new Book(rs.getString(7), rs.getString(8), rs.getString(9));
+					Post p = new Post(rs.getString(1),b,rs.getString(3),rs.getString(4),rs.getDouble(5),rs.getBoolean(6));
 					res.add(p);
 			 	}
 			 	

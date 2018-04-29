@@ -16,6 +16,7 @@ import model.OrderManager;
 
 public class DisplayBookServlet extends HttpServlet{
 	DisplayManager dm = new DisplayManager();
+	OrderManager om = new OrderManager();
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		String logout = request.getParameter("logout");
@@ -26,20 +27,12 @@ public class DisplayBookServlet extends HttpServlet{
 			session.invalidate();
 			response.sendRedirect("/signup");
 			return;
-		}
-		String postid = request.getParameter("product");
-		System.out.println(postid);
-		if(postid != null) {
-			Post p = Post.getPost(postid);
-			System.out.println(p.getPrice());
-			request.setAttribute("clickedpost",p);
-			return;
-		}
-		
+		}	
 		request.getRequestDispatcher("/WEB-INF/views/search.jsp").forward(request, response);
 	}
 	protected void doPost(HttpServletRequest request,
 		HttpServletResponse response) throws ServletException, IOException {
+<<<<<<< HEAD
 		if(request.getParameter("confirmSearch")!=null) {
 			String radio = request.getParameter("searchtype");
 			ArrayList<Post> result = new ArrayList<>();
@@ -52,6 +45,30 @@ public class DisplayBookServlet extends HttpServlet{
 			boolean b = dm.requestBook(isbn,uid);
 			request.setAttribute("sqlError", b);
 		}
+=======
+		String order = request.getParameter("pid");
+		String buid = request.getParameter("buid");
+		if(order!=null) {
+			Post p = Post.getPost(order);
+			om.placeOrder(p, buid);
+		}
+		HttpSession session = request.getSession(true);
+		String r = request.getParameter("searchtype");
+		if(r!=null)
+		session.setAttribute("radio", r);
+		String radio = (String) session.getAttribute("radio");
+		/*response.setContentType("text/html");
+		PrintWriter out = response.getWriter();
+		out.print(request.getParameter("isbn_text"));*/
+		if(radio!=null) {
+		ArrayList<Post> result = new ArrayList<>();
+		
+		result = dm.searchBook(radio, request.getParameter("isbn_text"), request.getParameter("title_text"), request.getParameter("author_text"));
+		request.setAttribute("result", result);
+		}
+		/*if(result.size()>0)
+		out.println(result.get(0).getB().getIsbn());*/
+>>>>>>> 8ba340999f8667e109a0b07250bdfc923a36cff7
 		request.getRequestDispatcher("/WEB-INF/views/search.jsp").include(request, response);
 		
 	}
