@@ -49,4 +49,17 @@ public class Book {
 		}
 		
 	}
+	public void modifyBook() {
+		try {
+			Connection conn = DatabaseConnect.createInstance().mySqlConnection();
+			String query = "update book set title=?,author=? where isbn=?";
+			PreparedStatement ps1 = conn.prepareStatement(query);
+			ps1.setString(1, this.getTitle());
+			ps1.setString(2, this.getAuthor());
+			ps1.setString(3, this.getIsbn());
+			ps1.execute();
+		}catch(Exception e ) {
+			e.printStackTrace();
+		}
+	}
 }

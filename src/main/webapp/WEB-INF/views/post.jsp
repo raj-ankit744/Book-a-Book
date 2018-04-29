@@ -22,7 +22,7 @@
   <body>
   	<script type="text/javascript">
 	function setvalues(id,isbn,title,author,desc,price) {
-		document.getElementById("pid").innerHTML = id;
+		document.getElementById("pid").value = id;
 		document.getElementById("isbn").value = isbn;
 		document.getElementById("title").value = title;
 		document.getElementById("author").value = author;
@@ -68,11 +68,12 @@
 		  <div class="modal-body">
 			<form id="modifyPost" method="post" action="/post">
 	 		<div class="form-group">
-              <label >PID  <span id = "pid" class="glyphicon glyphicon-user"></span> </label>
+              <label for="pid"><span class="glyphicon glyphicon-user"></span> Post ID</label>
+              <input type="text" class="form-control" name="pid" readonly="readonly" id="pid" value="${requestScope.pid}" required>
             </div>
 	 		<div class="form-group">
               <label for="author"><span class="glyphicon glyphicon-user"></span> AUTHOR</label>
-              <input type="text" class="form-control" name="author" id="author" placeholder="Enter Author Name" value="${requestScope.mauthor}" required>
+              <input type="text" class="form-control" name="author" id="author" placeholder="Enter Author Name" value="${requestScope.author}" required>
             </div>
     	   <div class="form-group">
               <label for="isbn"><span class="glyphicon glyphicon-eye-open"></span> ISBN</label>

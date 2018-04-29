@@ -50,21 +50,18 @@ public class PostServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, 
 			IOException {
 		HttpSession session = request.getSession();
-		String pid = "RE13";
-		String uid = (String)session.getAttribute("username");
-		
-		
-			String author = request.getParameter("author");
-			String isbn = request.getParameter("isbn");
-			String title = request.getParameter("title");
-			String description = request.getParameter("description");
-			double price = Double.parseDouble(request.getParameter("price"));
+		String pid = request.getParameter("pid");
+		String uid = (String)session.getAttribute("username");		
+		String author = request.getParameter("author");
+		String isbn = request.getParameter("isbn");
+		String title = request.getParameter("title");
+		String description = request.getParameter("description");
+		double price = Double.parseDouble(request.getParameter("price"));
 		if(request.getParameter("create")!=null) {
-			pm.createPost(pid,isbn,title,author,uid,description,price,true);
+			pm.createPost(isbn,title,author,uid,description,price,true);
 			response.sendRedirect("/post");
 		}
-		
-		
+
 		if(request.getParameter("modify")!=null) {
 			pm.modifyPost(pid,isbn,title,author,uid,description,price,true);
 			response.sendRedirect("/post");
