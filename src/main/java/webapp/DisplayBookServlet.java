@@ -27,6 +27,15 @@ public class DisplayBookServlet extends HttpServlet{
 			response.sendRedirect("/signup");
 			return;
 		}
+		String postid = request.getParameter("product");
+		System.out.println(postid);
+		if(postid != null) {
+			Post p = Post.getPost(postid);
+			System.out.println(p.getPrice());
+			request.setAttribute("clickedpost",p);
+			return;
+		}
+		
 		request.getRequestDispatcher("/WEB-INF/views/search.jsp").forward(request, response);
 	}
 	protected void doPost(HttpServletRequest request,
@@ -44,5 +53,6 @@ public class DisplayBookServlet extends HttpServlet{
 			request.setAttribute("sqlError", b);
 		}
 		request.getRequestDispatcher("/WEB-INF/views/search.jsp").include(request, response);
+		
 	}
 }

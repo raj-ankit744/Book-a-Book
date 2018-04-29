@@ -115,7 +115,36 @@ public class Post {
 		 }		 
 		 return p;
 	 }
-
+	public static Post getPost(String id) {
+		try {
+			Connection conn = DatabaseConnect.createInstance().mySqlConnection();
+			if(conn==null)
+				return null;
+		 	PreparedStatement ps;
+		 	ResultSet rs;
+		 	String sql = "select * from postad where id = ?";
+		 	ps = conn.prepareStatement(sql);
+		 	ps.setString(1, id);
+		 	rs = ps.executeQuery();
+		 	
+		 	if(rs.next()) {
+		 		
+		 		String sql1 = "select * from book where isbn = ?";
+		 		PreparedStatement ps1 = conn.prepareStatement(sql1);
+		 		ps1.setString(1,rs.getString("isbn"));
+		 		ResultSet rs1 = ps1.executeQuery();
+		 		if(rs1.next()) {
+		 			Book b = new Book(rs1.getString(1),rs1.getString(2),rs1.getString(3));
+		 			
+		 			return new Post(rs.getString(1),b,rs.getString(3),rs.getString(4),rs.getDouble(5));
+		 		}
+		 	}
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
 	public static ArrayList<Post> searchBook(String radio, String isbn, String title, String author) {
 		// TODO Auto-generated method stub
 		ArrayList<Post> res = new ArrayList<Post>();	

@@ -21,6 +21,16 @@
     		<artifactId>jstl</artifactId>
     		<version>1.2</version>
 		</dependency>
+		<dependency>
+            <groupId>com.sun.mail</groupId>
+            <artifactId>mailapi</artifactId>
+            <version>1.5.2</version>
+        </dependency>
+        <dependency>
+            <groupId>com.sun.mail</groupId>
+            <artifactId>smtp</artifactId>
+            <version>1.5.2</version>
+        </dependency>
 	</dependencies>
 
 	<build>

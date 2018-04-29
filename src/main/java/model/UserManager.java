@@ -13,8 +13,8 @@ public class UserManager {
 		User u = new User(uid,password,name,usertype,address,contact,new ArrayList<Order>());
 		u.register();
 	}
-	public String verifyuser(String uid, String password) {
-		User u = new User(uid,password,"","","","", new ArrayList<Order>());
+	public boolean verifyuser(String uid, String password,String usertype) {
+		User u = new User(uid,password,"",usertype,"","", new ArrayList<Order>());
 		return u.verifyuser();
 	}
 }

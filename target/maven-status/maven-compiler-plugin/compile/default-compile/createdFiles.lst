@@ -3,6 +3,7 @@ webapp\OrderServlet.class
 webapp\PostServlet.class
 webapp\DisplayBookServlet.class
 webapp\SignupServlet.class
+model\DisplayManager.class
 webapp\NotificationManagerServlet.class
 webapp\LoginServlet.class
 webapp\UserServlet.class
