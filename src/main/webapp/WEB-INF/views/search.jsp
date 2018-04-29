@@ -1,4 +1,5 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ page import="java.util.ArrayList"%>
 <!DOCTYPE html>
 <html>
@@ -43,8 +44,9 @@
 	</nav>
 	<!-- Search Results -->
 	<div class="container">
+	<c:if test="${fn:length(result) gt 0}">
 	  <h2>Search Results</h2>	             
-	  <table class="table table-hover" style="visibility : visible">
+	  <table class="table table-hover">
 	    <thead>	    
 	      <tr>
 	        <th>Title</th>
@@ -64,6 +66,18 @@
 	      </c:forEach>   	     
 	    </tbody>
 	  </table>
+	  </c:if>
+	  <c:if test="${fn:length(result) eq 0}">
+	  	<h2>Request Book</h2>
+	  	<form id="requestform" method="post" action="/search">
+	  	<div class="row">
+	  		<div class = "col-xs-12 col-sm-12 col md-12">
+	  		<div class="form-group">
+				<input id="isbn_request_text" name="isbn_request_text" type="text"  placeholder="ISBN" required>
+            </div></div></div>
+            <button form="requestform" name="req" type="submit" class="btn btn-default btn-success" ><span class="glyphicon glyphicon-off"></span> Search</button>
+            </form>
+	  </c:if>
 	</div>
 	<!-- Modal -->	
 	<div class="modal fade" id="searchpost" tabindex="-1" role="dialog" aria-hidden="true">
@@ -101,7 +115,7 @@
 		  
 		  <div class="modal-footer">
 			<button  class="btn btn-secondary" data-dismiss="modal">Close</button>
-			<button form="createform" type="submit" class="btn btn-default btn-success btn-block"><span class="glyphicon glyphicon-off"></span> Search</button>
+			<button form="createform" name="confirmSearch" type="submit" class="btn btn-default btn-success btn-block"><span class="glyphicon glyphicon-off"></span> Search</button>
 		  </div>
 		</div>
 	  </div>

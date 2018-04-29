@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 
 import entity.Post;
 import model.DisplayManager;
+import model.OrderManager;
 
 public class DisplayBookServlet extends HttpServlet{
 	DisplayManager dm = new DisplayManager();
@@ -30,17 +31,18 @@ public class DisplayBookServlet extends HttpServlet{
 	}
 	protected void doPost(HttpServletRequest request,
 		HttpServletResponse response) throws ServletException, IOException {
-		String radio = request.getParameter("searchtype");
-		/*response.setContentType("text/html");
-		PrintWriter out = response.getWriter();
-		out.print(request.getParameter("isbn_text"));*/
-		ArrayList<Post> result = new ArrayList<>();
-		
-		result = dm.searchBook(radio, request.getParameter("isbn_text"), request.getParameter("title_text"), request.getParameter("author_text"));
-		request.setAttribute("result", result);
-		
-		/*if(result.size()>0)
-		out.println(result.get(0).getB().getIsbn());*/
+		if(request.getParameter("confirmSearch")!=null) {
+			String radio = request.getParameter("searchtype");
+			ArrayList<Post> result = new ArrayList<>();
+			result = dm.searchBook(radio, request.getParameter("isbn_text"), request.getParameter("title_text"), request.getParameter("author_text"));
+			request.setAttribute("result", result);
+		}
+		if(request.getParameter("req")!=null) {
+			String isbn = request.getParameter("isbn_request_text");
+			String uid = (String) request.getSession().getAttribute("username");
+			boolean b = dm.requestBook(isbn,uid);
+			request.setAttribute("sqlError", b);
+		}
 		request.getRequestDispatcher("/WEB-INF/views/search.jsp").include(request, response);
 	}
 }
