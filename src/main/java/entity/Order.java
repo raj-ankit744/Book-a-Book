@@ -2,7 +2,9 @@ package entity;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Date;
 
 import helpers.DatabaseConnect;
@@ -70,10 +72,36 @@ public class Order {
 			 	ps.setString(2, isbn);
 			 	ps.setString(3, uid);
 			 	ps.execute();
+			 	conn.close();
 			}
 		catch(SQLException e) {
 			e.printStackTrace();
 		}
+	}
+	public static ArrayList<String> getRequestId(String isbn) {
+		ArrayList<String> ruid = new ArrayList<String>();
+		try {			 	
+			Connection conn = DatabaseConnect.createInstance().mySqlConnection();
+		 	String query = "select * from request where isbn = ?";
+		 	if(conn ==null)
+		 		return null;
+		 	PreparedStatement ps = conn.prepareStatement(query);
+		 	ps.setString(1, isbn);
+		 	ResultSet rs = ps.executeQuery();
+		 	while(rs.next()) {
+		 		String sql = "delete from request where rid = ?";
+		 		PreparedStatement ps1 = conn.prepareStatement(sql);
+		 		ps1.setString(1, rs.getString(1));
+		 		ruid.add(rs.getString(3));
+		 		ps1.executeUpdate();
+		 	}
+		 	conn.close();
+		 	return ruid;
+		}
+	catch(SQLException e) {
+		e.printStackTrace();
+	}
+		return null;
 	}
 	
 	

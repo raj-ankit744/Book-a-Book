@@ -6,6 +6,7 @@ import entity.Order;
 import entity.Post;
 
 public class OrderManager {
+	NotificationManager nm = new NotificationManager();
 	public void placeOrder(Post p, String buid) {
 		String oid = "O" + p.getId().substring(1);
 		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
