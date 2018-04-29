@@ -82,10 +82,10 @@ public class User {
 			PreparedStatement ps = conn.prepareStatement(query);
 			ps.setString(1,this.uid);
 			ResultSet rs = ps.executeQuery();
-			if(!rs.next())	
-				return false;
+			while(rs.next()) {
 			if(rs.getString("password").equals(this.password) && rs.getString("usertype").equals(this.type))
 				return true;
+			}
 			rs.close();
 			conn.close();
 		}

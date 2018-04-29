@@ -39,7 +39,7 @@ public class NotificationManager {
 			message.setFrom(new InternetAddress(username));
 			message.setRecipients(Message.RecipientType.TO,
 				InternetAddress.parse(user));
-			message.setSubject("Order Placed at book-a-book.com");
+			message.setSubject("Notification from book-a-book.com");
 			String msg;
 			if(usertype.equals("buyer")) {
 				User u = User.getUser(user);
@@ -51,7 +51,7 @@ public class NotificationManager {
 				msg = "Name of Buyer: "+u.getName() + "\nContact: "+u.getContact()+"\nAddress: "+u.getAddress()+"\nKindly Contact Within 7 days of placing Order.";
 			}
 			else {
-				msg = "Your Request for isbn: "+usertype+" is available now. You can find it by searching it.";
+				msg = "Your Request for isbn: "+usertype+" is available now.";
 			}
 			message.setText("Dear User,"
 				+ "\n\n"+msg);
