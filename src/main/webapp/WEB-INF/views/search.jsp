@@ -1,4 +1,5 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ page import="java.util.ArrayList"%>
 <!DOCTYPE html>
 <html>
@@ -53,10 +54,12 @@
 	</script>
 	<!-- Search Results -->
 	<div class="container">
+	<c:if test="${fn:length(result) gt 0}">
 	  <h2>Search Results</h2>	             
-	  <table class="table table-hover " style="visibility : visible">
+	  <table class="table table-hover">
+
 	    <thead>	    
-	      <tr>
+	    	  <tr>
 	        <th>Title</th>
 	        <th>Author</th>
 	        <th>ISBN</th>
@@ -69,13 +72,26 @@
 	         <td> <c:out value = "${result.getB().getTitle()}" /> </td>
 	         <td><c:out value = "${result.getB().getAuthor()}" /></td>
 	         <td><c:out value = "${result.getB().getIsbn()}" /></td>
-	         <td><c:out value = "${result.getPrice()}" /></td>
+	         <td>&#8377; <c:out value = "${result.getPrice()}" /></td>
 	       </tr>	       
 	      </c:forEach>   	     
 	    </tbody>
 	  </table>
+	  </c:if>
+	  <!-- Request Book -->
+	  <c:if test="${fn:length(result) eq 0}">
+	  	<h2>Request Book</h2>
+	  	<form id="requestform" method="post" action="/search">
+	  	<div class="row">
+	  		<div class = "col-xs-12 col-sm-12 col md-12">
+	  		<div class="form-group">
+				<input id="isbn_request_text" name="isbn_request_text" type="text"  placeholder="ISBN" required>
+            </div></div></div>
+            <button form="requestform" name="req" type="submit" class="btn btn-default btn-success" ><span class="glyphicon glyphicon-off"></span> Request</button>
+            </form>
+	  </c:if>
 	</div>
-	<!-- Modal -->	
+	<!-- Modal for Search-->	
 	<div class="modal fade" id="searchpost" tabindex="-1" role="dialog" aria-hidden="true">
 	  <div class="modal-dialog" role="document">
 		<div class="modal-content">
@@ -111,7 +127,7 @@
 		  
 		  <div class="modal-footer">
 			<button  class="btn btn-secondary" data-dismiss="modal">Close</button>
-			<button form="createform" type="submit" class="btn btn-default btn-success btn-block"><span class="glyphicon glyphicon-off"></span> Search</button>
+			<button form="createform" name="confirmSearch" type="submit" class="btn btn-default btn-success btn-block"><span class="glyphicon glyphicon-off"></span> Search</button>
 		  </div>
 		</div>
 	  </div>
@@ -142,7 +158,7 @@
                         <p id = "desc" class="text-justify product-description"></p>
                         
                         <br />
-                        <h2>$<span id="price" class="price"></span></h2>
+                        <h2>&#8377; <span id="price" class="price"></span></h2>
                         <form id="fpid" method="post" action="/search">
                         	<input id="pid" name="pid" type="hidden" />
                         	<input name="buid" type=hidden value="${sessionScope.username}" />
@@ -153,7 +169,7 @@
 		  
 		  <div class="modal-footer">
 			<button  class="btn btn-secondary" data-dismiss="modal">Close</button>
-			<button form="fpid" type="submit" class="btn btn-default btn-success btn-block"><span class="glyphicon glyphicon-off"></span> Place Order</button>
+			<button form="fpid" type="submit" name="placeOrder" class="btn btn-default btn-success btn-block"><span class="glyphicon glyphicon-off"></span> Place Order</button>
 		  </div>
 		</div>
 	  </div>

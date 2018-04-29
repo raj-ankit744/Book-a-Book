@@ -2,6 +2,7 @@ package entity;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.Date;
 
 import helpers.DatabaseConnect;
@@ -58,8 +59,21 @@ public class Order {
 		}
 		catch (Exception e) {
 			e.printStackTrace();
+		}	
+	}
+	public static void requestOrder(String isbn, String uid) {
+		try {			 	
+				Connection conn = DatabaseConnect.createInstance().mySqlConnection();
+			 	String query = "insert into request values(?,?,?)";
+			 	PreparedStatement ps = conn.prepareStatement(query);
+			 	ps.setString(1, "R1");
+			 	ps.setString(2, isbn);
+			 	ps.setString(3, uid);
+			 	ps.execute();
+			}
+		catch(SQLException e) {
+			e.printStackTrace();
 		}
-		
 	}
 	
 	

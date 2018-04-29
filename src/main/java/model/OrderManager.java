@@ -13,4 +13,8 @@ public class OrderManager {
 		Order o = new Order(oid,buid,p,0,date);
 		o.placeOrder();
 	}
+	public void requestOrder(String isbn, String uid) {
+		// TODO Auto-generated method stub
+		Order.requestOrder(isbn, uid);
+	}	
 }

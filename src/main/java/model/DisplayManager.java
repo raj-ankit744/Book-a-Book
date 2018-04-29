@@ -11,5 +11,5 @@ public class DisplayManager {
 		// TODO Auto-generated method stub
 		ArrayList<Post> rs = Post.searchBook(radio, isbn, title, author);
 		return rs;
-	}	
+	}
 }

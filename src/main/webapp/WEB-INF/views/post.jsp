@@ -26,7 +26,7 @@
 		document.getElementById("isbn").value = isbn;
 		document.getElementById("title").value = title;
 		document.getElementById("author").value = author;
-		document.getElementById("desc").value = desc;
+		document.getElementById("description").value = desc;
 		document.getElementById("price").value =  price;
 	};
 	</script>
@@ -54,26 +54,27 @@
 		</ul>
 		</div>
 	</nav>
-	<!-- Modal -->
-	<!-- <div class="modal fade" id="modifypost" tabindex="-1" role="dialog" aria-hidden="true">
+	
+	<!-- Modal for modify post -->
+	<div class="modal fade" id="modifypost" tabindex="-1" role="dialog" aria-hidden="true">
 	  <div class="modal-dialog" role="document">
 		<div class="modal-content">
 		  <div class="modal-header">
-			<h5 class="modal-title" >Enter Advertisement Details</h5>
+			<h5 class="modal-title" >Modify Advertisement Details</h5>
 			<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 			  <span aria-hidden="true">&times;</span>
 			</button>
 		  </div>
 		  <div class="modal-body">
-			<form id="modifypost" method="post" action="/post">
-			<div class="form-group">
+			<form id="modifyPost" method="post" action="/post">
+	 		<div class="form-group">
               <label >PID  <span id = "pid" class="glyphicon glyphicon-user"></span> </label>
             </div>
-			<div class="form-group">
+	 		<div class="form-group">
               <label for="author"><span class="glyphicon glyphicon-user"></span> AUTHOR</label>
-              <input type="text" class="form-control" name="author" id="author" placeholder="Enter Author Name" value="${requestScope.author}" required>
+              <input type="text" class="form-control" name="author" id="author" placeholder="Enter Author Name" value="${requestScope.mauthor}" required>
             </div>
-            <div class="form-group">
+    	   <div class="form-group">
               <label for="isbn"><span class="glyphicon glyphicon-eye-open"></span> ISBN</label>
               <input type="text" class="form-control" name="isbn" id="isbn" placeholder="Enter ISBN" value="${requestScope.isbn}" required>
             </div>
@@ -84,11 +85,9 @@
             </div>
 			<div class="form-group">
               <label for="description"><span class="glyphicon glyphicon-eye-open"></span> DESCRIPTION</label>
-			  <br>
-              <textarea row="5" col="3" class="form-control" id="desc" name="description" placeholder="Enter Description" form="createform"  required></textarea>
-			  
+              <textarea class="form-control" id="description" name="description" placeholder="Enter Description" form="modifyPost" required>${requestScope.description}</textarea>  
             </div>
-            <div class="form-group">
+             <div class="form-group">
               <label for="price"><span class="glyphicon glyphicon-eye-open"></span> Price</label>
               <input type="text" class="form-control" id="price" name="price" placeholder="Enter Price" value="${requestScope.price}" required>
             </div>
@@ -97,14 +96,18 @@
 		  
 		  <div class="modal-footer">
 			<button  class="btn btn-secondary" data-dismiss="modal">Close</button>
-			<button form="createform" type="submit" class="btn btn-default btn-success btn-block"><span class="glyphicon glyphicon-off"></span> Create</button>
+			<button form="modifyPost" name="modify" type="submit" class="btn btn-default btn-success btn-block"><span class="glyphicon glyphicon-off"></span> Modify</button>
 		  </div>
 		</div>
 	  </div>
-	</div>-->
+	</div>
+	
+	
 	<br><br>
+	<!-- All Posts -->
 	<div class="container">
-	  <h2>Your posts</h2>	             
+	  <h2>Your Posts</h2>
+	  <span style="color:green">(Click on post to edit)</span>	             
 	  <table class="table table-hover">
 	    <thead>	    
 	      <tr>
@@ -122,13 +125,15 @@
 	         <td> <c:out value = "${pd.getB().getTitle()}" /> </td>
 	         <td><c:out value = "${pd.getB().getAuthor()}" /></td>
 	         <td><c:out value = "${pd.getB().getIsbn()}" /></td>
-	         <td><c:out value = "${pd.getPrice()}" /></td>
+	         <td>&#8377; <c:out value = "${pd.getPrice()}" /></td>
 	       </tr>	       
 	      </c:forEach>   	
 	    </tbody>
 	  </table>
 	</div>
-	<!-- Modal -->
+	
+	
+	<!-- Modal for post-->
 	<div class="modal fade" id="createpost" tabindex="-1" role="dialog" aria-hidden="true">
 	  <div class="modal-dialog" role="document">
 		<div class="modal-content">
@@ -155,8 +160,7 @@
             </div>
 			<div class="form-group">
               <label for="description"><span class="glyphicon glyphicon-eye-open"></span> DESCRIPTION</label>
-			  <br>
-              <textarea class="form-control" name="description" placeholder="Enter Description" form="createform"   required></textarea>
+              <textarea class="form-control" name="description" placeholder="Enter Description" form="createform" required>${requestScope.description}</textarea>
 			  
             </div>
             <div class="form-group">
@@ -168,11 +172,10 @@
 		  
 		  <div class="modal-footer">
 			<button  class="btn btn-secondary" data-dismiss="modal">Close</button>
-			<button form="createform" type="submit" class="btn btn-default btn-success btn-block"><span class="glyphicon glyphicon-off"></span> Create</button>
+			<button form="createform" type="submit" name="create" class="btn btn-default btn-success btn-block"><span class="glyphicon glyphicon-off"></span> Create</button>
 		  </div>
 		</div>
 	  </div>
 	</div>
-
   </body>
 </html>
