@@ -143,8 +143,9 @@
                         
                         <br />
                         <h2>$<span id="price" class="price"></span></h2>
-                        <form id="fpid" method="post" action="">
-                        	<input id="pid" type="hidden" />
+                        <form id="fpid" method="post" action="/search">
+                        	<input id="pid" name="pid" type="hidden" />
+                        	<input name="buid" type=hidden value="${sessionScope.username}" />
                         </form>
                     </div>
                 </div>
@@ -152,7 +153,7 @@
 		  
 		  <div class="modal-footer">
 			<button  class="btn btn-secondary" data-dismiss="modal">Close</button>
-			<button  type="submit" class="btn btn-default btn-success btn-block"><span class="glyphicon glyphicon-off"></span> Place Order</button>
+			<button form="fpid" type="submit" class="btn btn-default btn-success btn-block"><span class="glyphicon glyphicon-off"></span> Place Order</button>
 		  </div>
 		</div>
 	  </div>

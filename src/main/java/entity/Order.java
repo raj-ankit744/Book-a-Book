@@ -1,31 +1,65 @@
 package entity;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.util.Date;
 
+import helpers.DatabaseConnect;
+
 public class Order {
-	String oid,suid,buid,isbn;
-	Boolean status;
+	String oid,buid;
+	Post p;
+	int status;
 	Date date; 
-	public Boolean getStatus() {
+	public Order(String oid, String buid, Post p, int status, Date date) {
+		this.oid = oid;
+		this.buid = buid;
+		this.p = p;
+		this.status = status;
+		this.date = date;
+	}
+	public int getStatus() {
 		return status;
 	}
-	public void setStatus(Boolean status) {
+	public void setStatus(int status) {
 		this.status = status;
 	}
 	public String getOid() {
 		return oid;
 	}
-	public String getSuid() {
-		return suid;
-	}
 	public String getBuid() {
 		return buid;
 	}
-	public String getIsbn() {
-		return isbn;
+	public Post getPost() {
+		return p;
 	}
 	public Date getDate() {
 		return date;
+	}
+	public void placeOrder() {
+		try {
+			Connection conn = DatabaseConnect.createInstance().mySqlConnection();
+			String query = "insert into orders (oid, buid, pid, date, status)" 
+					+ " values (?,?,?,?,?)";
+			String sql  = "update postad set status = 0 where id = ?";
+			if(conn == null)	
+				return ;
+			PreparedStatement ps = conn.prepareStatement(query);
+			PreparedStatement ps1=conn.prepareStatement(sql);
+			ps1.setString(1,this.p.getId());
+			ps.setString(1, this.oid);
+			ps.setString(2, this.buid);
+			ps.setString(3, this.p.getId());
+			ps.setObject(4, this.date);
+			ps.setInt(5, this.status);
+			ps.execute();
+			ps1.executeUpdate();
+			conn.close();
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		
 	}
 	
 	

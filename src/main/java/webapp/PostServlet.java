@@ -56,7 +56,7 @@ public class PostServlet extends HttpServlet {
 		String title = request.getParameter("title");
 		String description = request.getParameter("description");
 		double price = Double.parseDouble(request.getParameter("price"));
-		pm.createPost(pid,isbn,title,author,uid,description,price);
+		pm.createPost(pid,isbn,title,author,uid,description,price,true);
 		//request.getRequestDispatcher("/WEB-INF/views/post.jsp").forward(request, response);
 		response.sendRedirect("/post");
 	}
