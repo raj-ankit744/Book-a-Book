@@ -32,20 +32,6 @@ public class DisplayBookServlet extends HttpServlet{
 	}
 	protected void doPost(HttpServletRequest request,
 		HttpServletResponse response) throws ServletException, IOException {
-<<<<<<< HEAD
-		if(request.getParameter("confirmSearch")!=null) {
-			String radio = request.getParameter("searchtype");
-			ArrayList<Post> result = new ArrayList<>();
-			result = dm.searchBook(radio, request.getParameter("isbn_text"), request.getParameter("title_text"), request.getParameter("author_text"));
-			request.setAttribute("result", result);
-		}
-		if(request.getParameter("req")!=null) {
-			String isbn = request.getParameter("isbn_request_text");
-			String uid = (String) request.getSession().getAttribute("username");
-			boolean b = dm.requestBook(isbn,uid);
-			request.setAttribute("sqlError", b);
-		}
-=======
 		String order = request.getParameter("pid");
 		String buid = request.getParameter("buid");
 		if(order!=null) {
@@ -68,7 +54,6 @@ public class DisplayBookServlet extends HttpServlet{
 		}
 		/*if(result.size()>0)
 		out.println(result.get(0).getB().getIsbn());*/
->>>>>>> 8ba340999f8667e109a0b07250bdfc923a36cff7
 		request.getRequestDispatcher("/WEB-INF/views/search.jsp").include(request, response);
 		
 	}
