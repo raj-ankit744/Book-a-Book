@@ -24,15 +24,15 @@ public class PostServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		String logout = request.getParameter("logout");
-		HttpSession session = request.getSession();
-		session.setAttribute("login","true");
-		session.setAttribute("cur", request.getRequestURI());
-		if(logout!=null || session.getAttribute("username")==null) {
-			session.invalidate();
-			response.sendRedirect("/signup");
-			return;
-		}								
+//		String logout = request.getParameter("logout");
+//		HttpSession session = request.getSession();
+//		session.setAttribute("login","true");
+//		session.setAttribute("cur", request.getRequestURI());
+//		if(logout!=null || session.getAttribute("username")==null) {
+//			session.invalidate();
+//			response.sendRedirect("/signup");
+//			return;
+//		}								
 		ArrayList<Post> post = new ArrayList<Post>();
 		ArrayList<Book> book = new ArrayList<Book>();
 		post = pm.getPost("12");
