@@ -12,7 +12,7 @@ public class PostManager {
 			String uid,String description,double price, Boolean status) {
 		Book b = new Book(isbn,title,author);
 		b.createBook();
-		Post p = new Post(pid,b,"12",description,price,status);
+		Post p = new Post(pid,b,uid,description,price,status);
 		p.createPost();
 	}
 	
@@ -21,4 +21,15 @@ public class PostManager {
 		p.setUid(uid);
 		return p.getPost();
 	}
+
+	public void modifyPost(String pid, String misbn, String mtitle, String mauthor, String uid, String mdescription,
+			double mprice, boolean b) {
+		// TODO Auto-generated method stub
+		Book book = new Book(misbn,mtitle,mauthor);
+		book.createBook();
+		Post p = new Post(pid,book,uid,mdescription,mprice,b);
+		p.modifyPost();
+	}
+	
+	
 }

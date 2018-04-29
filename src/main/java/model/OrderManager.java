@@ -6,9 +6,6 @@ import entity.Order;
 import entity.Post;
 
 public class OrderManager {
-<<<<<<< HEAD
-
-=======
 	public void placeOrder(Post p, String buid) {
 		String oid = "O" + p.getId().substring(1);
 		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
@@ -16,5 +13,8 @@ public class OrderManager {
 		Order o = new Order(oid,buid,p,0,date);
 		o.placeOrder();
 	}
->>>>>>> 8ba340999f8667e109a0b07250bdfc923a36cff7
+	public void requestOrder(String isbn, String uid) {
+		// TODO Auto-generated method stub
+		Order.requestOrder(isbn, uid);
+	}	
 }

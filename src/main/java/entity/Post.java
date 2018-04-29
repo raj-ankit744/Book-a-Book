@@ -190,4 +190,33 @@ public class Post {
 		 }
 		return res;
 	}
+
+	public void modifyPost() {
+		// TODO Auto-generated method stub
+		 try {
+				Connection conn = DatabaseConnect.createInstance().mySqlConnection();
+				String query = "update postad set isbn=?, uid=?, description=?, price=?, status=? where id=?";
+				String sql = "update book set title=?,author=? where isbn=?";
+				if(conn == null)	
+					return ;
+				PreparedStatement ps = conn.prepareStatement(query);
+				PreparedStatement ps1 = conn.prepareStatement(sql);
+				
+				ps.setString(1, this.getB().getIsbn());
+				ps.setString(2, this.getUid());
+				ps.setString(3, this.getDescription());
+				ps.setDouble(4, this.getPrice());
+				ps.setBoolean(5, this.status);
+				ps.setString(6, this.getId());
+				ps1.setString(1, this.getB().getTitle());
+				ps1.setString(2, this.getB().getAuthor());
+				ps1.setString(3, this.getB().getIsbn());
+				ps.execute();
+				ps1.execute();
+				conn.close();
+			}
+			catch (Exception e) {
+				e.printStackTrace();
+			}
+	}
 }

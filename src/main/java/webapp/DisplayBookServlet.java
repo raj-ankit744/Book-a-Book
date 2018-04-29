@@ -32,28 +32,31 @@ public class DisplayBookServlet extends HttpServlet{
 	}
 	protected void doPost(HttpServletRequest request,
 		HttpServletResponse response) throws ServletException, IOException {
-		String order = request.getParameter("pid");
-		String buid = request.getParameter("buid");
-		if(order!=null) {
-			Post p = Post.getPost(order);
-			om.placeOrder(p, buid);
+		if(request.getParameter("placeOrder")!=null) {
+			String order = request.getParameter("pid");
+			String buid = request.getParameter("buid");
+			if(order!=null) {
+				Post p = Post.getPost(order);
+				om.placeOrder(p, buid);
+			}
 		}
 		HttpSession session = request.getSession(true);
-		String r = request.getParameter("searchtype");
-		if(r!=null)
-		session.setAttribute("radio", r);
-		String radio = (String) session.getAttribute("radio");
-		/*response.setContentType("text/html");
-		PrintWriter out = response.getWriter();
-		out.print(request.getParameter("isbn_text"));*/
-		if(radio!=null) {
-		ArrayList<Post> result = new ArrayList<>();
-		
-		result = dm.searchBook(radio, request.getParameter("isbn_text"), request.getParameter("title_text"), request.getParameter("author_text"));
-		request.setAttribute("result", result);
+		if(request.getParameter("confirmSearch")!=null) {
+			String r = request.getParameter("searchtype");
+			if(r!=null)
+				session.setAttribute("radio", r);
+			String radio = (String) session.getAttribute("radio");
+			if(radio!=null) {
+				ArrayList<Post> result = new ArrayList<>();
+				result = dm.searchBook(radio, request.getParameter("isbn_text"), request.getParameter("title_text"), request.getParameter("author_text"));
+				request.setAttribute("result", result);
+			}
 		}
-		/*if(result.size()>0)
-		out.println(result.get(0).getB().getIsbn());*/
+		if(request.getParameter("req")!=null) {
+			String isbn = request.getParameter("isbn_request_text");
+			String uid = (String) request.getSession().getAttribute("username");
+			om.requestOrder(isbn,uid);
+		}
 		request.getRequestDispatcher("/WEB-INF/views/search.jsp").include(request, response);
 		
 	}
