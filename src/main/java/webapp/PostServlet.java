@@ -1,7 +1,10 @@
 package webapp;
 
+import model.NotificationManager;
 import model.PostManager;
 import entity.Book;
+import entity.Order;
+
 import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
@@ -21,6 +24,7 @@ import javax.servlet.http.HttpSession;
 public class PostServlet extends HttpServlet {
 	
 	PostManager pm = new PostManager();
+	NotificationManager nm = new NotificationManager();
 	@Override
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
@@ -59,6 +63,10 @@ public class PostServlet extends HttpServlet {
 		double price = Double.parseDouble(request.getParameter("price"));
 		if(request.getParameter("create")!=null) {
 			pm.createPost(isbn,title,author,uid,description,price,true);
+			ArrayList<String> ruid = Order.getRequestId(isbn);
+			for(String id : ruid) {
+				nm.sendEmail(id, isbn);
+			}
 			response.sendRedirect("/post");
 		}
 
