@@ -74,13 +74,26 @@ public class Post {
 		this.price = price;
 	}
 	 public void createPost() {
+		 Connection conn = DatabaseConnect.createInstance().mySqlConnection();
+		 if(conn == null)	
+				return ;
+		 String id="P1";
 		 try {
-				Connection conn = DatabaseConnect.createInstance().mySqlConnection();
+			 String query = "select * from postad order by id desc";
+			 PreparedStatement ps = conn.prepareStatement(query);
+			 ResultSet rs = ps.executeQuery();
+			 if(rs.next()) {
+				 long n = Long.parseLong(rs.getString("id").substring(1,rs.getString("id").length()))+1;
+				 id = "P"+n;
+				 this.setId(id);
+			 }
+		 }catch(SQLException e) {
+			 e.printStackTrace();
+		 }
+		 try {
+				
 				String query = "insert into postad (id, isbn, uid, description, price, status)" 
 						+ " values (?,?,?,?,?,?)";
-				
-				if(conn == null)	
-					return ;
 				PreparedStatement ps = conn.prepareStatement(query);
 				ps.setString(1, this.getId());
 				ps.setString(2, this.getB().getIsbn());
@@ -195,24 +208,20 @@ public class Post {
 		// TODO Auto-generated method stub
 		 try {
 				Connection conn = DatabaseConnect.createInstance().mySqlConnection();
-				String query = "update postad set isbn=?, uid=?, description=?, price=?, status=? where id=?";
-				String sql = "update book set title=?,author=? where isbn=?";
+				String query = "update postad set isbn=?, description=?, price=?, status=? where id=? and uid=?";
 				if(conn == null)	
 					return ;
 				PreparedStatement ps = conn.prepareStatement(query);
-				PreparedStatement ps1 = conn.prepareStatement(sql);
 				
 				ps.setString(1, this.getB().getIsbn());
-				ps.setString(2, this.getUid());
-				ps.setString(3, this.getDescription());
-				ps.setDouble(4, this.getPrice());
-				ps.setBoolean(5, this.status);
-				ps.setString(6, this.getId());
-				ps1.setString(1, this.getB().getTitle());
-				ps1.setString(2, this.getB().getAuthor());
-				ps1.setString(3, this.getB().getIsbn());
+				ps.setString(2, this.getDescription());
+				ps.setDouble(3, this.getPrice());
+				ps.setBoolean(4, this.status);
+				ps.setString(5, this.getId());
+				ps.setString(6, this.getUid());
+			
 				ps.execute();
-				ps1.execute();
+				
 				conn.close();
 			}
 			catch (Exception e) {
