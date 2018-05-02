@@ -24,18 +24,18 @@ public class PostServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-//		String logout = request.getParameter("logout");
-//		HttpSession session = request.getSession();
-//		session.setAttribute("login","true");
-//		session.setAttribute("cur", request.getRequestURI());
-//		if(logout!=null || session.getAttribute("username")==null) {
-//			session.invalidate();
-//			response.sendRedirect("/signup");
-//			return;
-//		}								
+		String logout = request.getParameter("logout");
+		HttpSession session = request.getSession();
+		session.setAttribute("login","true");
+		session.setAttribute("cur", request.getRequestURI());
+		if(logout!=null || session.getAttribute("username")==null) {
+			session.invalidate();
+			response.sendRedirect("/signup");
+			return;
+		}								
 		ArrayList<Post> post = new ArrayList<Post>();
 		ArrayList<Book> book = new ArrayList<Book>();
-		post = pm.getPost("12");
+		post = pm.getPost((String)session.getAttribute("username"));
 		for(Post p: post) {
 			book.add(p.getB());
 		}		
@@ -49,19 +49,27 @@ public class PostServlet extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, 
 			IOException {
-		String pid = "RE12";
-		String uid = "12";
-		String author = request.getParameter("author");
-		String isbn = request.getParameter("isbn");
-		String title = request.getParameter("title");
-		String description = request.getParameter("description");
-		double price = Double.parseDouble(request.getParameter("price"));
-		System.out.println(author);
-		System.out.println(isbn);
-		System.out.println(title);
-		System.out.println(description);
-		request.getRequestDispatcher("/WEB-INF/views/post.jsp").forward(request, response); 
-		pm.createPost(pid,isbn,title,author,uid,description,price);
+		HttpSession session = request.getSession();
+		String pid = "RE13";
+		String uid = (String)session.getAttribute("username");
+		
+		
+			String author = request.getParameter("author");
+			String isbn = request.getParameter("isbn");
+			String title = request.getParameter("title");
+			String description = request.getParameter("description");
+			double price = Double.parseDouble(request.getParameter("price"));
+		if(request.getParameter("create")!=null) {
+			pm.createPost(pid,isbn,title,author,uid,description,price,true);
+			response.sendRedirect("/post");
+		}
+		
+		
+		if(request.getParameter("modify")!=null) {
+			pm.modifyPost(pid,isbn,title,author,uid,description,price,true);
+			response.sendRedirect("/post");
+		}
+		//request.getRequestDispatcher("/WEB-INF/views/post.jsp").forward(request, response);
 	}
 	
 	

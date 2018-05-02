@@ -6,7 +6,7 @@
 	<style type="text/css">
   		<%@include file="css/bootstrap.min.css" %>
 	</style>	
-	<script type="text/javascript" src="js/bootstrap.min.js"></script> 
+	<script type="text/javascript" ><%@include file ="js/bootstrap.min.js" %></script> 
 </head>
 <body>
 
@@ -63,12 +63,13 @@
 	            </div>
 	      </form>
 	            <div class="row">
+	            	<div class="col-xs-12 col-md-6">
+	                    <button form="reg" type="submit" class="btn btn-primary btn-block btn-md" tabindex="6">Register</button>
+	                </div>
 	                <div class="col-xs-12 col-md-6">
 	                    <a href="/login" class="btn btn-success btn-block btn-md">Sign In</a>
 	                </div>
-	                <div class="col-xs-12 col-md-6">
-	                    <button form="reg" type="submit" class="btn btn-primary btn-block btn-md" tabindex="6">Register</button>
-	                </div>
+	                
 	            </div>	     
 	    </div>    
 	</div>

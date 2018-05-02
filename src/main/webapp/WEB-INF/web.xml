@@ -34,7 +34,27 @@
        <servlet-name>signup</servlet-name>
        <url-pattern>/signup</url-pattern>
     </servlet-mapping>
-
+    
+    <servlet>
+       <servlet-name>viewpost</servlet-name>
+       <servlet-class>webapp.ViewServlet</servlet-class>
+    </servlet>
+ 
+    <servlet-mapping>
+       <servlet-name>viewpost</servlet-name>
+       <url-pattern>/viewpost</url-pattern>
+    </servlet-mapping>
+    
+	<servlet>
+       <servlet-name>search</servlet-name>
+       <servlet-class>webapp.DisplayBookServlet</servlet-class>
+    </servlet>
+ 
+    <servlet-mapping>
+       <servlet-name>search</servlet-name>
+       <url-pattern>/search</url-pattern>
+    </servlet-mapping>
+	
 	<welcome-file-list>
 		<welcome-file>signup</welcome-file>
 	</welcome-file-list>

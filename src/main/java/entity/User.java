@@ -41,27 +41,27 @@ public class User {
 			e.printStackTrace();
 		}
 	}
-	public String verifyuser() {
+	public boolean verifyuser() {
 		try {
 			Connection conn = DatabaseConnect.createInstance().mySqlConnection();
 			String query = "Select * from user where uid = ?"; 
 			
 			if(conn == null)	
-				return "Invalid";
+				return false;
 			PreparedStatement ps = conn.prepareStatement(query);
 			ps.setString(1,this.uid);
 			ResultSet rs = ps.executeQuery();
 			if(!rs.next())	
-				return "Invalid";
-			if(rs.getString(2).equals(this.password))
-				return rs.getString(4);
+				return false;
+			if(rs.getString("password").equals(this.password) && rs.getString("usertype").equals(this.type))
+				return true;
 			rs.close();
 			conn.close();
 		}
 		catch (Exception e) {
 			e.printStackTrace();
 		}
-		return "Invalid";
+		return false;
 	}
 
 	public String getUid() {
