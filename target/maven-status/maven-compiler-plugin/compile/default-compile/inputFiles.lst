@@ -1,39 +1,19 @@
-<<<<<<< HEAD
 D:\Project\book-a-book\src\main\java\model\UserManager.java
+D:\Project\book-a-book\src\main\java\webapp\ViewServlet.java
 D:\Project\book-a-book\src\main\java\model\BGProcessManger.java
 D:\Project\book-a-book\src\main\java\webapp\PostServlet.java
 D:\Project\book-a-book\src\main\java\model\OrderManager.java
-D:\Project\book-a-book\src\main\java\entity\Request.java
 D:\Project\book-a-book\src\main\java\model\SomeDailyJob.java
 D:\Project\book-a-book\src\main\java\webapp\SignupServlet.java
 D:\Project\book-a-book\src\main\java\webapp\OrderServlet.java
 D:\Project\book-a-book\src\main\java\model\PostManager.java
+D:\Project\book-a-book\src\main\java\model\NotificationManager.java
 D:\Project\book-a-book\src\main\java\webapp\UserServlet.java
 D:\Project\book-a-book\src\main\java\entity\Post.java
-D:\Project\book-a-book\src\main\java\webapp\NotificationManagerServlet.java
 D:\Project\book-a-book\src\main\java\webapp\DisplayBookServlet.java
 D:\Project\book-a-book\src\main\java\entity\Order.java
+D:\Project\book-a-book\src\main\java\model\DisplayManager.java
 D:\Project\book-a-book\src\main\java\webapp\LoginServlet.java
 D:\Project\book-a-book\src\main\java\entity\User.java
 D:\Project\book-a-book\src\main\java\entity\Book.java
 D:\Project\book-a-book\src\main\java\helpers\DatabaseConnect.java
-=======
-C:\Users\GOURAV\Desktop\New folder\Book-a-Book\src\main\java\model\SomeDailyJob.java
-C:\Users\GOURAV\Desktop\New folder\Book-a-Book\src\main\java\webapp\PostServlet.java
-C:\Users\GOURAV\Desktop\New folder\Book-a-Book\src\main\java\webapp\SignupServlet.java
-C:\Users\GOURAV\Desktop\New folder\Book-a-Book\src\main\java\model\UserManager.java
-C:\Users\GOURAV\Desktop\New folder\Book-a-Book\src\main\java\helpers\DatabaseConnect.java
-C:\Users\GOURAV\Desktop\New folder\Book-a-Book\src\main\java\entity\Order.java
-C:\Users\GOURAV\Desktop\New folder\Book-a-Book\src\main\java\entity\Book.java
-C:\Users\GOURAV\Desktop\New folder\Book-a-Book\src\main\java\webapp\UserServlet.java
-C:\Users\GOURAV\Desktop\New folder\Book-a-Book\src\main\java\model\BGProcessManger.java
-C:\Users\GOURAV\Desktop\New folder\Book-a-Book\src\main\java\webapp\NotificationManagerServlet.java
-C:\Users\GOURAV\Desktop\New folder\Book-a-Book\src\main\java\entity\User.java
-C:\Users\GOURAV\Desktop\New folder\Book-a-Book\src\main\java\model\OrderManager.java
-C:\Users\GOURAV\Desktop\New folder\Book-a-Book\src\main\java\entity\Post.java
-C:\Users\GOURAV\Desktop\New folder\Book-a-Book\src\main\java\webapp\DisplayBookServlet.java
-C:\Users\GOURAV\Desktop\New folder\Book-a-Book\src\main\java\webapp\OrderServlet.java
-C:\Users\GOURAV\Desktop\New folder\Book-a-Book\src\main\java\model\DisplayManager.java
-C:\Users\GOURAV\Desktop\New folder\Book-a-Book\src\main\java\webapp\LoginServlet.java
-C:\Users\GOURAV\Desktop\New folder\Book-a-Book\src\main\java\model\PostManager.java
->>>>>>> 195a55a6758d49acb6787a228c302a275e35b0b5

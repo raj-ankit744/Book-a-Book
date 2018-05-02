@@ -41,6 +41,37 @@ public class User {
 			e.printStackTrace();
 		}
 	}
+	
+	public static User getUser(String id) {
+		try {
+			Connection conn = DatabaseConnect.createInstance().mySqlConnection();
+			String query = "Select * from user where uid = ?"; 
+			
+			if(conn == null)	
+				return null;
+			PreparedStatement ps = conn.prepareStatement(query);
+			ps.setString(1,id);
+			ResultSet rs = ps.executeQuery();
+			if(!rs.next())	
+				return null;
+			User u = new User(rs.getString(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getString(5),rs.getString(6),new ArrayList<Order>());
+			rs.close();
+			conn.close();
+			return u;
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
 	public boolean verifyuser() {
 		try {
 			Connection conn = DatabaseConnect.createInstance().mySqlConnection();
@@ -51,10 +82,10 @@ public class User {
 			PreparedStatement ps = conn.prepareStatement(query);
 			ps.setString(1,this.uid);
 			ResultSet rs = ps.executeQuery();
-			if(!rs.next())	
-				return false;
+			while(rs.next()) {
 			if(rs.getString("password").equals(this.password) && rs.getString("usertype").equals(this.type))
 				return true;
+			}
 			rs.close();
 			conn.close();
 		}
@@ -79,4 +110,5 @@ public class User {
 	public String getContact() {
 		return contact;
 	}
+
 }

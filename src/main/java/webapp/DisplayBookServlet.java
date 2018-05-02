@@ -12,11 +12,13 @@ import javax.servlet.http.HttpSession;
 
 import entity.Post;
 import model.DisplayManager;
+import model.NotificationManager;
 import model.OrderManager;
 
 public class DisplayBookServlet extends HttpServlet{
 	DisplayManager dm = new DisplayManager();
 	OrderManager om = new OrderManager();
+	NotificationManager nm = new NotificationManager();
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		String logout = request.getParameter("logout");
@@ -38,6 +40,8 @@ public class DisplayBookServlet extends HttpServlet{
 			if(order!=null) {
 				Post p = Post.getPost(order);
 				om.placeOrder(p, buid);
+				nm.sendEmail(p.getUid(),"seller");
+				nm.sendEmail(buid,"buyer");
 			}
 		}
 		HttpSession session = request.getSession(true);

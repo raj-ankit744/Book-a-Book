@@ -1,7 +1,10 @@
 package webapp;
 
+import model.NotificationManager;
 import model.PostManager;
 import entity.Book;
+import entity.Order;
+
 import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
@@ -21,6 +24,7 @@ import javax.servlet.http.HttpSession;
 public class PostServlet extends HttpServlet {
 	
 	PostManager pm = new PostManager();
+	NotificationManager nm = new NotificationManager();
 	@Override
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
@@ -50,21 +54,22 @@ public class PostServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, 
 			IOException {
 		HttpSession session = request.getSession();
-		String pid = "RE13";
-		String uid = (String)session.getAttribute("username");
-		
-		
-			String author = request.getParameter("author");
-			String isbn = request.getParameter("isbn");
-			String title = request.getParameter("title");
-			String description = request.getParameter("description");
-			double price = Double.parseDouble(request.getParameter("price"));
+		String pid = request.getParameter("pid");
+		String uid = (String)session.getAttribute("username");		
+		String author = request.getParameter("author");
+		String isbn = request.getParameter("isbn");
+		String title = request.getParameter("title");
+		String description = request.getParameter("description");
+		double price = Double.parseDouble(request.getParameter("price"));
 		if(request.getParameter("create")!=null) {
-			pm.createPost(pid,isbn,title,author,uid,description,price,true);
+			pm.createPost(isbn,title,author,uid,description,price,true);
+			ArrayList<String> ruid = Order.getRequestId(isbn);
+			for(String id : ruid) {
+				nm.sendEmail(id, isbn);
+			}
 			response.sendRedirect("/post");
 		}
-		
-		
+
 		if(request.getParameter("modify")!=null) {
 			pm.modifyPost(pid,isbn,title,author,uid,description,price,true);
 			response.sendRedirect("/post");
