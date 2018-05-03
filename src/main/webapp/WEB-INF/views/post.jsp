@@ -42,6 +42,9 @@
 		<li class="nav-item">
 			<a class="nav-link" data-toggle="modal" href="#createpost">Post Advertisement</a>
 		</li>
+		<li class="nav-item">
+			<a class="nav-link" target="_blank" href="/viewpost">View Posts</a>
+		</li>
 		</ul>
 		<ul class = "nav navbar-nav ml-auto pull-right">
 			<li class="nav-item dropdown">

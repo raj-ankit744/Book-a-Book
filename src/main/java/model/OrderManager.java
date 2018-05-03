@@ -24,4 +24,7 @@ public class OrderManager {
 	public void cancelOrder(String oid, String pid) {
 		Order.cancelOrder(oid, pid);
 	}
+	public ArrayList<Order> getOrderForSeller(String uid) {
+		return Order.getOrderForSeller(uid);
+	}
 }

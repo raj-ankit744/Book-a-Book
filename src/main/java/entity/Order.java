@@ -74,7 +74,7 @@ public class Order {
 		try {
 			Connection conn = DatabaseConnect.createInstance().mySqlConnection();
 			String query = "update postad set status = 1 where id = ?";
-			String query1 = "update orders set status = 1 where id = ?";
+			String query1 = "delete from orders where oid = ?";
 			if(conn == null)
 				return;
 			PreparedStatement ps = conn.prepareStatement(query);
@@ -114,6 +114,60 @@ public class Order {
 			e.printStackTrace();
 		}
 	}
+	
+	public static ArrayList<Order> getOrderForSeller(String uid){
+		ArrayList<Order> ord = new ArrayList<Order>();
+		Order o;
+		Book b;
+		Post pt;
+		try {
+			Connection conn = DatabaseConnect.createInstance().mySqlConnection();
+			String sql1 = "select * from postad where uid = ? and status = 0";
+			PreparedStatement st = conn.prepareStatement(sql1);
+			st.setString(1, uid);
+			String title, author, isbn, buid, description, pid, oid, id ;
+			Date date;
+			int status2;
+			boolean status;
+			double price;
+			ResultSet rs1 = st.executeQuery();
+			while(rs1.next()) {
+				id = rs1.getString("id");
+				isbn = rs1.getString("isbn");
+				String sql2 = "select * from orders where pid = ?";
+				PreparedStatement st1 = conn.prepareStatement(sql2);
+				st1.setString(1, id);
+				ResultSet rs2 = st1.executeQuery();
+				if(rs2.next()) {
+					String sql3 = "select * from book where isbn = ?";
+					PreparedStatement st2 = conn.prepareStatement(sql3);
+					st2.setString(1, isbn);
+					ResultSet rs3 = st2.executeQuery();
+					if(rs3.next()) {
+						title = rs3.getString("title");
+						author = rs3.getString("author");
+						b = new Book(isbn, title, author);
+					
+						buid = rs2.getString("buid");
+						date = rs2.getDate("date");
+						status2 = rs2.getInt("status");
+						oid = rs2.getString("oid");
+						
+						description = rs1.getString("description");
+						price = rs1.getDouble("price");
+						status = rs1.getBoolean("status");
+						pt = new Post(id, b, uid, description, price, status);
+						o = new Order(oid, buid, pt,status2, date);
+						ord.add(o);
+					}
+				}
+			}			
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		return ord;
+	}
 
 	 public static ArrayList<Order> getOrder(String buid) {
 		 ArrayList<Order> ord = new ArrayList<Order>();
@@ -133,9 +187,9 @@ public class Order {
 			 	ResultSet rs1 = st.executeQuery();
 			 	while(rs1.next()) {		
 			 		pidTemp = rs1.getString("pid");
-			 		String sql2 = "select * from postad where id = ? and status = 0";
+			 		String sql2 = "select * from postad where id = ?";
 			 		PreparedStatement st1 = conn.prepareStatement(sql2);
-			 		st1.setString(1, pidTemp);
+			 		st1.setString(1, pidTemp);			 		
 			 		ResultSet rs2 = st1.executeQuery();
 			 		if(rs2.next()) {
 			 			isbnTemp = rs2.getString("isbn");
