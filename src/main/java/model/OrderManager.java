@@ -7,25 +7,29 @@ import entity.Post;
 
 public class OrderManager {
 	NotificationManager nm = new NotificationManager();
-	public void placeOrder(Post p, String buid) {
+	public boolean placeOrder(Post p, String buid) {
 		String oid = "O" + p.getId().substring(1);
 		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 		Date date = new Date();
 		Order o = new Order(oid,buid,p,0,date);
-		o.placeOrder();
+		boolean b = o.placeOrder();
+		return b;
 	}
-	public void requestOrder(String isbn, String uid) {
+	public boolean requestOrder(String isbn, String uid) {
 		// TODO Auto-generated method stub
-		Order.requestOrder(isbn, uid);
+		boolean b = Order.requestOrder(isbn, uid);
+		return b;
 	}	
 	public ArrayList<Order> getOrder(String buid){
 		return Order.getOrder(buid);
 	}
-	public void cancelOrder(String oid, String pid) {
-		Order.cancelOrder(oid, pid);
+	public boolean cancelOrder(String oid, String pid) {
+		boolean b = Order.cancelOrder(oid, pid);
+		return b;
 	}
-	public void confirmOrder(String oid) {
-		Order.confirmOrder(oid);
+	public boolean confirmOrder(String oid) {
+		boolean b = Order.confirmOrder(oid);
+		return b;
 	}
 	public ArrayList<Order> getOrderForSeller(String uid) {
 		return Order.getOrderForSeller(uid);
