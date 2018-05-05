@@ -30,36 +30,42 @@ public class Book {
 	public void setAuthor(String author) {
 		this.author = author;
 	}
-	public void createBook() {
+	public boolean createBook() {
+		boolean b = false;
 		try {
 			Connection conn = DatabaseConnect.createInstance().mySqlConnection();
 			if(conn == null)
-				return;
+				return b;
 			String query = "insert into book values(?,?,?)";
 			PreparedStatement ps = conn.prepareStatement(query);
 			ps.setString(1, this.isbn);
 			ps.setString(2, this.title);
 			ps.setString(3, this.author);
-			ps.execute();
+			b = ps.execute();
 			conn.close();
 			
 		}
 		catch(Exception e ) {
 			e.printStackTrace();
 		}
-		
+		return b;
 	}
-	public void modifyBook() {
+	public boolean modifyBook() {
+		boolean b = false;
 		try {
 			Connection conn = DatabaseConnect.createInstance().mySqlConnection();
+			if(conn == null)
+				return b;
 			String query = "update book set title=?,author=? where isbn=?";
 			PreparedStatement ps1 = conn.prepareStatement(query);
 			ps1.setString(1, this.getTitle());
 			ps1.setString(2, this.getAuthor());
 			ps1.setString(3, this.getIsbn());
-			ps1.execute();
+			b = ps1.execute();
+			conn.close();
 		}catch(Exception e ) {
 			e.printStackTrace();
 		}
+		return b;
 	}
 }

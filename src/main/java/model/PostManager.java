@@ -8,13 +8,17 @@ import helpers.DatabaseConnect;
 
 public class PostManager {
 
-	public void createPost(String isbn, String title, String author, String uid, String description, double price,
+	public boolean createPost(String isbn, String title, String author, String uid, String description, double price,
 			boolean status) {
 		// TODO Auto-generated method stub
 		Book b = new Book(isbn,title,author);
-		b.createBook();
+		boolean c = b.createBook();
 		Post p = new Post("P1",b,uid,description,price,status);
-		p.createPost();
+		boolean d = p.createPost();
+		if(d == false || c == false)
+			return d;
+		else
+			return true;
 	}
 	
 	public ArrayList<Post> getPost(String uid) {		
@@ -23,12 +27,16 @@ public class PostManager {
 		return p.getPost();
 	}
 
-	public void modifyPost(String id, String isbn, String title, String author, String uid, String description,  double price,
+	public boolean modifyPost(String id, String isbn, String title, String author, String uid, String description,  double price,
 			boolean b) {
 		// TODO Auto-generated method stub
 		Book book = new Book(isbn,title,author);
-		book.modifyBook();
+		boolean c = book.modifyBook();
 		Post p = new Post(id,book,uid,description,price,b);
-		p.modifyPost();
+		boolean d = p.modifyPost();
+		if(d == false || c == false)
+			return d;
+		else
+			return true;
 	}	
 }

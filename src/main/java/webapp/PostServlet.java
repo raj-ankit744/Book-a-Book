@@ -66,7 +66,7 @@ public class PostServlet extends HttpServlet {
 		String description = request.getParameter("description");
 		double price = Double.parseDouble(request.getParameter("price"));
 		if(request.getParameter("create")!=null) {
-			pm.createPost(isbn,title,author,uid,description,price,true);
+			boolean b = pm.createPost(isbn,title,author,uid,description,price,true);
 			ArrayList<String> ruid = Order.getRequestId(isbn);
 			for(String id : ruid) {
 				nm.sendEmail(id,id, isbn);

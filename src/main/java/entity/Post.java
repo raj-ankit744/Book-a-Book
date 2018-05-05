@@ -73,10 +73,11 @@ public class Post {
 	public void setPrice(double price) {
 		this.price = price;
 	}
-	 public void createPost() {
+	 public boolean createPost() {
+		 boolean b = false;
 		 Connection conn = DatabaseConnect.createInstance().mySqlConnection();
 		 if(conn == null)	
-				return ;
+				return false;
 		 String id="P1";
 		 try {
 			 String query = "select * from postad order by id desc";
@@ -101,12 +102,13 @@ public class Post {
 				ps.setString(4, this.getDescription());
 				ps.setDouble(5, this.getPrice());
 				ps.setBoolean(6, this.status);
-				ps.execute();
+				b = ps.execute();
 				conn.close();
 			}
 			catch (Exception e) {
 				e.printStackTrace();
 			}
+		 return b;
 	 }
 	 public ArrayList<Post> getPost() {
 		 ArrayList<Post> p = new ArrayList<Post>();	
@@ -204,13 +206,13 @@ public class Post {
 		return res;
 	}
 
-	public void modifyPost() {
-		// TODO Auto-generated method stub
-		 try {
+	public boolean modifyPost() {
+		boolean b = false;
+		try {
 				Connection conn = DatabaseConnect.createInstance().mySqlConnection();
 				String query = "update postad set isbn=?, description=?, price=?, status=? where id=? and uid=?";
 				if(conn == null)	
-					return ;
+					return b;
 				PreparedStatement ps = conn.prepareStatement(query);
 				
 				ps.setString(1, this.getB().getIsbn());
@@ -220,12 +222,13 @@ public class Post {
 				ps.setString(5, this.getId());
 				ps.setString(6, this.getUid());
 			
-				ps.execute();
+				b = ps.execute();
 				
 				conn.close();
 			}
 			catch (Exception e) {
 				e.printStackTrace();
 			}
+		return b;
 	}
 }

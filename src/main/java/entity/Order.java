@@ -43,14 +43,15 @@ public class Order {
 	public Date getDate() {
 		return date;
 	}
-	public void placeOrder() {
+	public boolean placeOrder() {
+		boolean b = false;
 		try {
 			Connection conn = DatabaseConnect.createInstance().mySqlConnection();
 			String query = "insert into orders (oid, buid, pid, date, status)" 
 					+ " values (?,?,?,?,?)";
 			String sql  = "update postad set status = 0 where id = ?";
 			if(conn == null)	
-				return ;
+				return b;
 			PreparedStatement ps = conn.prepareStatement(query);
 			PreparedStatement ps1=conn.prepareStatement(sql);
 			String id = "O"+this.p.getId().substring(1);
@@ -61,56 +62,63 @@ public class Order {
 			ps.setString(3, this.p.getId());
 			ps.setObject(4, this.date);
 			ps.setInt(5, this.status);
-			ps.execute();
+			b = ps.execute();
 			ps1.executeUpdate();
 			conn.close();
 		}
 		catch (Exception e) {
 			e.printStackTrace();
-		}	
+		}
+		return b;
 	}
 	
-	public static void cancelOrder(String oid, String pid) {
+	public static boolean cancelOrder(String oid, String pid) {
+		boolean b = false;
 		try {
 			Connection conn = DatabaseConnect.createInstance().mySqlConnection();
 			String query = "update postad set status = 1 where id = ?";
 			String query1 = "update orders set status = 2 where oid = ?";
 			if(conn == null)
-				return;
+				return b;
 			PreparedStatement ps = conn.prepareStatement(query);
 			PreparedStatement ps1 = conn.prepareStatement(query1);
 			ps.setString(1, pid);
 			ps1.setString(1, oid);
-			ps.executeUpdate();
-			ps1.executeUpdate();
+			ps.execute();
+			b = ps1.execute();
 			conn.close();
 		}
 		catch(Exception e) {
 			e.printStackTrace();
 		}
-		
+		return b;
 	}
-	public static void confirmOrder(String oid) {
+	public static boolean confirmOrder(String oid) {
+		boolean b = false;
 		try {
 			Connection conn = DatabaseConnect.createInstance().mySqlConnection();
 			String query1 = "update orders set status = 1 where oid = ?";
 			if(conn == null)
-				return;
+				return b;
 			PreparedStatement ps1 = conn.prepareStatement(query1);
 			ps1.setString(1, oid);
-			ps1.executeUpdate();
+			b = ps1.execute();
 			conn.close();
 		}
 		catch(Exception e) {
 			e.printStackTrace();
 		}
-		
+		return b;
 	}
 	
-	public static void requestOrder(String isbn, String uid) {
+	public static boolean requestOrder(String isbn, String uid) {
+		boolean b = false;
 		String id = "R1";
 		try {			 	
 				Connection conn = DatabaseConnect.createInstance().mySqlConnection();
+				if(conn == null) {
+					return b;
+				}
 			 	String query = "insert into request values(?,?,?)";
 			 	String sql = "select * from request order by rid desc";
 			 	PreparedStatement ps = conn.prepareStatement(sql);
@@ -123,12 +131,13 @@ public class Order {
 			 	ps1.setString(1, id);
 			 	ps1.setString(2, isbn);
 			 	ps1.setString(3, uid);
-			 	ps1.execute();
+			 	b = ps1.execute();
 			 	conn.close();
 			}
 		catch(SQLException e) {
 			e.printStackTrace();
 		}
+		return b;
 	}
 	
 	public static ArrayList<Order> getOrderForSeller(String uid){
