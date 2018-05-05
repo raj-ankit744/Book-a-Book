@@ -31,6 +31,9 @@
 			<li class="nav-item active">
 				<a class="nav-link" data-toggle="modal" href="#searchpost">Search Book</a>
 			</li>
+			<li class="nav-item active">
+				<a class="nav-link" href="/viewpost" target="_blank">View Book</a>
+			</li>
 		</ul>
 		<ul class = "nav navbar-nav ml-auto pull-right">
 			<li class="nav-item dropdown">

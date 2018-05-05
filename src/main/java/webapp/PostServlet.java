@@ -73,8 +73,7 @@ public class PostServlet extends HttpServlet {
 		if(request.getParameter("modify")!=null) {
 			pm.modifyPost(pid,isbn,title,author,uid,description,price,true);
 			response.sendRedirect("/post");
-		}
-		//request.getRequestDispatcher("/WEB-INF/views/post.jsp").forward(request, response);
+		}		
 	}
 	
 	

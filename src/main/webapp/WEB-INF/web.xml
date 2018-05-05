@@ -35,6 +35,16 @@
        <url-pattern>/signup</url-pattern>
     </servlet-mapping>
     
+    <servlet>
+       <servlet-name>viewpost</servlet-name>
+       <servlet-class>webapp.ViewServlet</servlet-class>
+    </servlet>
+ 
+    <servlet-mapping>
+       <servlet-name>viewpost</servlet-name>
+       <url-pattern>/viewpost</url-pattern>
+    </servlet-mapping>
+    
 	<servlet>
        <servlet-name>search</servlet-name>
        <servlet-class>webapp.DisplayBookServlet</servlet-class>

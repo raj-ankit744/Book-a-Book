@@ -1,7 +1,7 @@
 package model;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.*;
 import entity.Order;
 import entity.Post;
 
@@ -18,4 +18,13 @@ public class OrderManager {
 		// TODO Auto-generated method stub
 		Order.requestOrder(isbn, uid);
 	}	
+	public ArrayList<Order> getOrder(String buid){
+		return Order.getOrder(buid);
+	}
+	public void cancelOrder(String oid, String pid) {
+		Order.cancelOrder(oid, pid);
+	}
+	public ArrayList<Order> getOrderForSeller(String uid) {
+		return Order.getOrderForSeller(uid);
+	}
 }
