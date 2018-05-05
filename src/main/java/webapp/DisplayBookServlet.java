@@ -25,6 +25,10 @@ public class DisplayBookServlet extends HttpServlet{
 		HttpSession session = request.getSession();
 		session.setAttribute("login","true");
 		session.setAttribute("cur", request.getRequestURI());
+		if(logout==null && session.getAttribute("type").equals("seller")) {
+			response.sendRedirect("/post");
+			return;
+		}
 		if(logout!=null || session.getAttribute("username")==null) {
 			session.invalidate();
 			response.sendRedirect("/signup");
@@ -40,8 +44,8 @@ public class DisplayBookServlet extends HttpServlet{
 			if(order!=null) {
 				Post p = Post.getPost(order);
 				om.placeOrder(p, buid);
-				nm.sendEmail(p.getUid(),"seller");
-				nm.sendEmail(buid,"buyer");
+				nm.sendEmail(p.getUid(),buid,"seller");
+				nm.sendEmail(buid,p.getUid(),"buyer");
 			}
 		}
 		HttpSession session = request.getSession(true);

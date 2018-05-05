@@ -32,6 +32,10 @@ public class PostServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		session.setAttribute("login","true");
 		session.setAttribute("cur", request.getRequestURI());
+		if(logout==null && session.getAttribute("type").equals("buyer")) {
+			response.sendRedirect("/search");
+			return;
+		}
 		if(logout!=null || session.getAttribute("username")==null) {
 			session.invalidate();
 			response.sendRedirect("/signup");
@@ -65,7 +69,7 @@ public class PostServlet extends HttpServlet {
 			pm.createPost(isbn,title,author,uid,description,price,true);
 			ArrayList<String> ruid = Order.getRequestId(isbn);
 			for(String id : ruid) {
-				nm.sendEmail(id, isbn);
+				nm.sendEmail(id,id, isbn);
 			}
 			response.sendRedirect("/post");
 		}

@@ -74,7 +74,7 @@ public class Order {
 		try {
 			Connection conn = DatabaseConnect.createInstance().mySqlConnection();
 			String query = "update postad set status = 1 where id = ?";
-			String query1 = "delete from orders where oid = ?";
+			String query1 = "update orders set status = 2 where oid = ?";
 			if(conn == null)
 				return;
 			PreparedStatement ps = conn.prepareStatement(query);
@@ -82,6 +82,22 @@ public class Order {
 			ps.setString(1, pid);
 			ps1.setString(1, oid);
 			ps.executeUpdate();
+			ps1.executeUpdate();
+			conn.close();
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+	}
+	public static void confirmOrder(String oid) {
+		try {
+			Connection conn = DatabaseConnect.createInstance().mySqlConnection();
+			String query1 = "update orders set status = 1 where oid = ?";
+			if(conn == null)
+				return;
+			PreparedStatement ps1 = conn.prepareStatement(query1);
+			ps1.setString(1, oid);
 			ps1.executeUpdate();
 			conn.close();
 		}

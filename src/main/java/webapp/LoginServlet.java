@@ -35,10 +35,12 @@ public class LoginServlet extends HttpServlet {
 		if(um.verifyuser(uid, password, usertype)) {
 			if(usertype.equalsIgnoreCase("Seller")) {
 				session.setAttribute("username", uid);
+				session.setAttribute("type","seller");
 				response.sendRedirect("/post");
 			}
 			else if(usertype.equalsIgnoreCase("Buyer")) {
 				session.setAttribute("username", uid);
+				session.setAttribute("type","buyer");
 				response.sendRedirect("/search");
 			}
 		}

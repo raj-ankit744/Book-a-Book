@@ -29,17 +29,15 @@ public class ViewServlet extends HttpServlet{
 		String username = (String)session.getAttribute("username");
 		User u = User.getUser(username);		
 		if(u.getType().equalsIgnoreCase("Seller"))	{
-			request.setAttribute("type", "seller");
 			ord = om.getOrderForSeller(username);
 		}
 		else {
-			request.setAttribute("type", "buyer");
 			ord = om.getOrder(username);
 		}
 		for(Order o: ord) {
 			pst.add(o.getPost());
 			book.add(o.getPost().getB());	
-//			System.out.println(o.getPost().getPrice());
+			//System.out.println(o.getPost().getPrice());
 		}
 //		System.out.println("hello1234");
 		request.setAttribute("bookdata", book);
@@ -61,7 +59,7 @@ public class ViewServlet extends HttpServlet{
 		String header = (String) session.getAttribute("cur");			
 		String orderID = request.getParameter("oid");
 //		System.out.println("12");
-		System.out.println(orderID + "kj");
+		//System.out.println(orderID + "kj");
 		String userName = (String)session.getAttribute("username");
 		String postID = request.getParameter("pid");
 		
@@ -73,11 +71,10 @@ public class ViewServlet extends HttpServlet{
 		String username = (String)session.getAttribute("username");
 		User u = User.getUser(username);		
 		if(u.getType().equalsIgnoreCase("Seller"))	{
-			request.setAttribute("type", "seller");
+			om.confirmOrder(orderID);
 			ord = om.getOrderForSeller(username);
 		}
 		else {
-			request.setAttribute("type", "buyer");
 			om.cancelOrder(orderID, postID);
 			ord = om.getOrder(username);
 		}

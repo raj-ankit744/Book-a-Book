@@ -15,7 +15,7 @@ import entity.User;
 
 public class NotificationManager {
 
-	public void sendEmail(String user, String usertype) {
+	public void sendEmail(String user,String rec, String usertype) {
 
 		final String username = "designlabbookabook@gmail.com";
 		final String password = "bookabook";
@@ -42,12 +42,12 @@ public class NotificationManager {
 			message.setSubject("Notification from book-a-book.com");
 			String msg;
 			if(usertype.equals("buyer")) {
-				User u = User.getUser(user);
+				User u = User.getUser(rec);
 				msg = "Name of Seller: "+u.getName() + "\nContact: "+u.getContact()+"\nAddress: "+u.getAddress()+"\nKindly Contact Within 7 days of placing Order.";
 			}
 			else if(usertype.equals("seller"))
 			{
-				User u = User.getUser(user);
+				User u = User.getUser(rec);
 				msg = "Name of Buyer: "+u.getName() + "\nContact: "+u.getContact()+"\nAddress: "+u.getAddress()+"\nKindly Contact Within 7 days of placing Order.";
 			}
 			else {
