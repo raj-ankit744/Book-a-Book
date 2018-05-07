@@ -117,11 +117,14 @@
 	</div>
 	<script type="text/javascript">
 	function setvalues(pid,oid,isbn,title,author,price,buyer,tail,status) {
-		if(status==2)
+		if(status==2 || status == 1){
 			document.getElementById("cancel").hidden = true;
-		if(status==1)
 			document.getElementById("confirm").hidden = true;
-			
+		}
+		else{
+			document.getElementById("cancel").hidden = false;
+			document.getElementById("confirm").hidden = false;
+		}
 		document.getElementById("oid"+tail).value = oid;
 		document.getElementById("pid"+tail).value = pid;
 		document.getElementById("isbn"+tail).innerHTML = isbn;
