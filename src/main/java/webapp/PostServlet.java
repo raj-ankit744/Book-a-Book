@@ -58,8 +58,14 @@ public class PostServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, 
 			IOException {
 		HttpSession session = request.getSession();
+		
+		String uid = (String)session.getAttribute("username");	
+		if(request.getParameter("delete")!=null) {
+			pm.deletePost(request.getParameter("delete"));
+			response.sendRedirect("/post");
+			return;
+		}
 		String pid = request.getParameter("pid");
-		String uid = (String)session.getAttribute("username");		
 		String author = request.getParameter("author");
 		String isbn = request.getParameter("isbn");
 		String title = request.getParameter("title");
@@ -72,12 +78,15 @@ public class PostServlet extends HttpServlet {
 				nm.sendEmail(id,id, isbn);
 			}
 			response.sendRedirect("/post");
+			return;
 		}
 
 		if(request.getParameter("modify")!=null) {
 			pm.modifyPost(pid,isbn,title,author,uid,description,price,true);
 			response.sendRedirect("/post");
 		}		
+		
+		
 	}
 	
 	

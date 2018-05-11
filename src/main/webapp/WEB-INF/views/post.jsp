@@ -76,16 +76,16 @@
             </div>
 	 		<div class="form-group">
               <label for="author"><span class="glyphicon glyphicon-user"></span> AUTHOR</label>
-              <input type="text" class="form-control" name="author" id="author" placeholder="Enter Author Name" value="${requestScope.author}" required>
+              <input type="text" class="form-control" name="author" readonly="readonly" id="author" placeholder="Enter Author Name" value="${requestScope.author}" required>
             </div>
     	   <div class="form-group">
               <label for="isbn"><span class="glyphicon glyphicon-eye-open"></span> ISBN</label>
-              <input type="text" class="form-control" name="isbn" id="isbn" placeholder="Enter ISBN" value="${requestScope.isbn}" required>
+              <input type="text" class="form-control" name="isbn" readonly="readonly" id="isbn" placeholder="Enter ISBN" value="${requestScope.isbn}" required>
             </div>
             
 			<div class="form-group">
               <label for="title"><span class="glyphicon glyphicon-eye-open"></span> TITLE</label>
-              <input type="text" class="form-control" name="title" id="title" placeholder="Enter TITLE" value="${requestScope.title}" required>
+              <input type="text" class="form-control" name="title" readonly="readonly" id="title" placeholder="Enter TITLE" value="${requestScope.title}" required>
             </div>
 			<div class="form-group">
               <label for="description"><span class="glyphicon glyphicon-eye-open"></span> DESCRIPTION</label>
@@ -130,7 +130,8 @@
 	         <td><c:out value = "${pd.getB().getAuthor()}" /></td>
 	         <td><c:out value = "${pd.getB().getIsbn()}" /></td>
 	         <td>&#8377; <c:out value = "${pd.getPrice()}" /></td>
-	       </tr>	       
+	         <td href="#"><form id= "delete" method="post" action="/post"><input name="delete" value="${pd.getId()}" type="hidden"><button type="submit" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></button></form></td>
+	       </tr>	    
 	      </c:forEach>   	
 	    </tbody>
 	  </table>

@@ -27,8 +27,15 @@ public class PostManager {
 			boolean b) {
 		// TODO Auto-generated method stub
 		Book book = new Book(isbn,title,author);
-		book.modifyBook();
 		Post p = new Post(id,book,uid,description,price,b);
 		p.modifyPost();
 	}	
+	
+	public void deletePost(String id) {
+		Post p = Post.getPost(id);
+		Book book = p.getB();
+		book.deleteBook();
+		p.deletePost();
+	}
+
 }

@@ -228,4 +228,24 @@ public class Post {
 				e.printStackTrace();
 			}
 	}
+
+	public void deletePost() {
+		 try {
+				Connection conn = DatabaseConnect.createInstance().mySqlConnection();
+				String query = "delete from postad where id=?";
+				if(conn == null)	
+					return ;
+				PreparedStatement ps = conn.prepareStatement(query);
+				
+				ps.setString(1, this.getId());
+			
+				ps.execute();
+				
+				conn.close();
+			}
+			catch (Exception e) {
+				e.printStackTrace();
+			}
+		
+	}
 }

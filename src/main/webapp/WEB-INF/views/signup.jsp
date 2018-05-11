@@ -9,7 +9,16 @@
 	<script type="text/javascript" ><%@include file ="js/bootstrap.min.js" %></script> 
 </head>
 <body>
+	<script>
+		function check() {
+			pass = document.getElementsByName("password")[0];
+			conf = document.getElementsByName("cnfrmpas")[0];
+			if( pass.value != conf.value){
+				conf.value = "";
+			}
 
+		}
+	</script>
 	<div class="row">
 	    <div class = "col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
 	    <form id = "reg" method  = "post" action="/signup">
@@ -48,7 +57,7 @@
 	                </div>
 	                <div class = "col-xs-12 col-sm-6 col-md-6">
 	                    <div class="form-group">
-	                        <input type="password" class="form-control input-md" placeholder="Confirm Password" tabindex="7" required>
+	                        <input name="cnfrmpas" onblur="check()" type="password" class="form-control input-md" placeholder="Confirm Password" tabindex="7" required>
 	                    </div>
 	                </div>
 	            </div>
